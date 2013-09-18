@@ -2,14 +2,13 @@
 
 Easy to use, iOS-7-style transculent notification view that drops into `UIView` and `UITableView`.
 
-<div style="float: left">
+<div style="float: left; text-align: center">
 
-<img src="https://f.cloud.github.com/assets/956573/1167993/7edb035a-2098-11e3-9572-34a35cbc288d.png" width="33%" margin="2pt"></img>
-
-<img src="https://f.cloud.github.com/assets/956573/1167994/801ea4e2-2098-11e3-8d56-d856b8040eff.png" width="33%" margin="2pt"></img>
-
-
-<img src="https://f.cloud.github.com/assets/956573/1167997/81752d2a-2098-11e3-96a3-c99f4b576a1f.png" width="33%" margin="2pt"></img>
+<img src="https://f.cloud.github.com/assets/956573/1167993/7edb035a-2098-11e3-9572-34a35cbc288d.png" width="30%"></img>
+&nbsp;
+<img src="https://f.cloud.github.com/assets/956573/1167994/801ea4e2-2098-11e3-8d56-d856b8040eff.png" width="30%"></img>
+&nbsp;
+<img src="https://f.cloud.github.com/assets/956573/1167997/81752d2a-2098-11e3-96a3-c99f4b576a1f.png" width="30%"></img>
 
 
 </div>
