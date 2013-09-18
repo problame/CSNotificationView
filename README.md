@@ -41,3 +41,7 @@ Customize appearance
          duration:5.8f];
 
 ```
+
+##License
+
+See [LICENSE.md](https://raw.github.com/problame/CSNotificationView/master/LICENSE.md)
