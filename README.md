@@ -1,6 +1,7 @@
 #CSNotificationView
 
 Easy to use, iOS-7-style transculent notification view that drops into `UIView` and `UITableView`.
+**Requires iOS 7.**
 
 <div style="float: left; text-align: center">
 
