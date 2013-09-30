@@ -157,21 +157,29 @@
         
         //Content views
         {
-            _textLabel = [[UILabel alloc] init];
-            _textLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-            _textLabel.minimumScaleFactor = 0.5;
-            _textLabel.adjustsFontSizeToFitWidth = YES;
-            _textLabel.numberOfLines = 2;
-            _textLabel.textColor = [UIColor whiteColor];
-            _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            [self addSubview:_textLabel];
-            
-            _imageView = [[UIImageView alloc] init];
-            _imageView.opaque = NO;
-            _imageView.backgroundColor = [UIColor clearColor];
-            _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-            _imageView.contentMode = UIViewContentModeCenter;
-            [self addSubview:_imageView];
+            //textLabel
+            {
+                _textLabel = [[UILabel alloc] init];
+                
+                UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+                _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+                _textLabel.minimumScaleFactor = 0.6;
+                _textLabel.adjustsFontSizeToFitWidth = YES;
+                
+                _textLabel.numberOfLines = 2;
+                _textLabel.textColor = [UIColor whiteColor];
+                _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+                [self addSubview:_textLabel];
+            }
+            //imageView
+            {
+                _imageView = [[UIImageView alloc] init];
+                _imageView.opaque = NO;
+                _imageView.backgroundColor = [UIColor clearColor];
+                _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+                _imageView.contentMode = UIViewContentModeCenter;
+                [self addSubview:_imageView];
+            }
         }
         
     }
