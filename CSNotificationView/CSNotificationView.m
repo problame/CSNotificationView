@@ -261,6 +261,7 @@
 - (void)setBlurTintColor:(UIColor *)blurTintColor
 {
     [self.toolbar setBarTintColor:blurTintColor];
+    self.textLabel.textColor = [self legibleTextColorForBlurTintColor:blurTintColor];
 }
 
 - (UIColor *)blurTintColor
@@ -268,5 +269,22 @@
     return self.toolbar.barTintColor;
 }
 
+#pragma mark - dynamic textLabel color
+
+- (UIColor*)legibleTextColorForBlurTintColor:(UIColor*)blurTintColor
+{
+    CGFloat r, g, b, a;
+    BOOL couldConvert = [blurTintColor getRed:&r green:&g blue:&b alpha:&a];
+    
+    UIColor* textColor = [UIColor whiteColor];
+    
+    CGFloat average = (r+g+b)/3.0; //Not considering alpha here, transperency is added by toolbar
+    if (couldConvert && average > 0.65) //0.65 is mostly gut-feeling
+    {
+        textColor = [[UIColor alloc] initWithWhite:0.2 alpha:1.0];
+    }
+    
+    return textColor;
+}
 
 @end
