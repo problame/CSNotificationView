@@ -6,12 +6,11 @@ Easy to use, iOS-7-style, semi-translucent notification view with blur that drop
 
 
 <div style="float: left; text-align: center">
-
-<img src="https://f.cloud.github.com/assets/14349/1233447/de61fffc-2928-11e3-8259-c1b81b08dfe0.png" width="30%"></img>
+<img src="https://f.cloud.github.com/assets/956573/1240926/3764db88-2a14-11e3-89d2-c1492b003d33.png" width="30%"></img>
 &nbsp;
-<img src="https://f.cloud.github.com/assets/14349/1233448/de644492-2928-11e3-89da-3801a77e1498.png" width="30%"></img>
+<img src="https://f.cloud.github.com/assets/956573/1240925/375efbdc-2a14-11e3-9258-7fc4395ae019.png" width="30%"></img>
 &nbsp;
-<img src="https://f.cloud.github.com/assets/956573/1167997/81752d2a-2098-11e3-96a3-c99f4b576a1f.png" width="30%"></img>
+<img src="https://f.cloud.github.com/assets/956573/1240927/37601cce-2a14-11e3-8963-daff170e5c05.png" width="30%"></img>
 
 
 </div>
