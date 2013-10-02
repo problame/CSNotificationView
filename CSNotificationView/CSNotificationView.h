@@ -29,4 +29,10 @@ typedef enum {
            message:(NSString*)message
           duration:(NSTimeInterval)duration;
 
+/**
+ The image property should be used for setting the image displayed in imageView
+ Only the alpha value will be used and then be tinted to a 'legible' color
+ */
+@property (nonatomic, strong) UIImage* image;
+
 @end

@@ -40,7 +40,7 @@
     __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
     note.textLabel.text = message;
     note.blurTintColor = tintColor;
-    note.imageView.image = image;
+    note.image = image;
     note.textLabel.text = message;
     
     [viewController.view addSubview:note];
@@ -269,7 +269,7 @@
 - (void)setBlurTintColor:(UIColor *)blurTintColor
 {
     [self.toolbar setBarTintColor:blurTintColor];
-    self.textLabel.textColor = [self legibleTextColorForBlurTintColor:blurTintColor];
+    [self updateForegroundColorsForBlurTintColor:blurTintColor];
 }
 
 - (UIColor *)blurTintColor
@@ -277,7 +277,25 @@
     return self.toolbar.barTintColor;
 }
 
+#pragma mark - image
+
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    [self updateForegroundColorsForBlurTintColor:self.blurTintColor];
+}
+
 #pragma mark - dynamic foreground color
+
+- (void)updateForegroundColorsForBlurTintColor:(UIColor*)blurTintColor
+{
+    NSParameterAssert(blurTintColor);
+    UIColor* legibleColor = [self legibleTextColorForBlurTintColor:blurTintColor];
+    self.textLabel.textColor = legibleColor;
+    self.imageView.image = [self imageFromAlphaChannelOfImage:self.image replacementColor:legibleColor];
+}
+
+#pragma mark -- helpers
 
 - (UIColor*)legibleTextColorForBlurTintColor:(UIColor*)blurTintColor
 {
@@ -293,6 +311,24 @@
     }
     
     return textColor;
+}
+
+- (UIImage*)imageFromAlphaChannelOfImage:(UIImage*)image replacementColor:(UIColor*)tintColor
+{
+    if (!image) return nil;
+    NSParameterAssert([tintColor isKindOfClass:[UIColor class]]);
+ 
+    //Credits: https://gist.github.com/omz/1102091
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    [image drawInRect:rect];
+    CGContextSetFillColorWithColor(c, [tintColor CGColor]);
+    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
+    CGContextFillRect(c, rect);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return result;
 }
 
 @end
