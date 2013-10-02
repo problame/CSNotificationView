@@ -277,7 +277,7 @@
     return self.toolbar.barTintColor;
 }
 
-#pragma mark - dynamic textLabel color
+#pragma mark - dynamic foreground color
 
 - (UIColor*)legibleTextColorForBlurTintColor:(UIColor*)blurTintColor
 {
