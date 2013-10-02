@@ -38,7 +38,6 @@
     NSAssert(message, @"'message' must not be nil.");
     
     __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
-    note.textLabel.text = message;
     note.blurTintColor = tintColor;
     note.image = image;
     note.textLabel.text = message;
@@ -164,6 +163,7 @@
                 UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
                 _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
                 _textLabel.minimumScaleFactor = 0.6;
+                _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 _textLabel.adjustsFontSizeToFitWidth = YES;
                 
                 _textLabel.numberOfLines = 2;
@@ -197,7 +197,8 @@
 
 - (void)updateConstraints
 {
-    [super updateConstraints];
+    [self removeConstraints:self.constraints];
+    
     CGFloat imageViewWidth = self.imageView.image ?
                                 kCSNotificationViewImageViewSidelength : 0.0f;
     CGFloat imageViewHeight = kCSNotificationViewImageViewSidelength;
@@ -207,7 +208,7 @@
           @"imageViewHeight":[NSNumber numberWithFloat:imageViewHeight]};
     
     [self addConstraints:[NSLayoutConstraint
-        constraintsWithVisualFormat:@"H:|-(4)-[_imageView(imageViewWidth)]-(5)-[_textLabel(1@1)]-(>=10)-|"
+        constraintsWithVisualFormat:@"H:|-(4)-[_imageView(imageViewWidth)]-(5)-[_textLabel]-(10)-|"
                             options:0
                             metrics:metrics
                               views:NSDictionaryOfVariableBindings(_textLabel, _imageView)]];
@@ -235,12 +236,8 @@
                     toItem:_imageView
                  attribute:NSLayoutAttributeCenterY
                 multiplier:1.0f constant:0]];
-}
-
-- (void)layoutSubviews
-{
-    self.frame = [CSNotificationView displayFrameInParentViewController:self.parentViewController];
-    [super layoutSubviews];
+    
+    [super updateConstraints];
 }
 
 - (void)setFrame:(CGRect)frame
