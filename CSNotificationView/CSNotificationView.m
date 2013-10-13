@@ -90,6 +90,47 @@
                           duration:kCSNotificationViewDefaultShowDuration];
 }
 
+#pragma mark - Progress:
++ (CSNotificationView *)showProgressInViewController:(UIViewController*)viewController
+                                                tintColor:(UIColor*)tintColor
+                                               image:(UIImage*)image
+                                             message:(NSString*)message
+
+{
+    NSAssert(message, @"'message' must not be nil.");
+    
+    __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
+    note.blurTintColor = tintColor;
+    note.image = image;
+    note.textLabel.text = message;
+    
+    [viewController.view addSubview:note];
+    
+    __block typeof(viewController) weakViewController = viewController;
+    note.displayedFrame = [CSNotificationView displayFrameInParentViewController:weakViewController];
+    note.hiddenFrame = [CSNotificationView offscreenFrameForInParentViewController:weakViewController];
+    
+    return note;
+}
+
+-(void)show{
+    [UIView animateWithDuration:0.4 animations:^{
+        [self setFrame:self.displayedFrame];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)dismiss{
+    [UIView animateWithDuration:0.4 animations:^{
+        [self setFrame:self.hiddenFrame];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+
 #pragma mark + frame calculation
 
 + (CGRect)offscreenFrameForInParentViewController:(UIViewController*)viewController
