@@ -35,4 +35,18 @@ typedef enum {
  */
 @property (nonatomic, strong) UIImage* image;
 
+
+#pragma mark - Progress:
++ (CSNotificationView *)showProgressInViewController:(UIViewController*)viewController
+                   tintColor:(UIColor*)tintColor
+                       image:(UIImage*)image
+                     message:(NSString*)message;
+
+@property CGRect displayedFrame;
+@property CGRect hiddenFrame;
+
+- (void)show;
+- (void)dismiss;
+
+
 @end

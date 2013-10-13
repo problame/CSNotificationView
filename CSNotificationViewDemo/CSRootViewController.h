@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CSNotificationView.h"
 
 @interface CSRootViewController : UITableViewController
 
+//Class method, defined for demo purposes
+-(void)dismissProgressCard;
 
 @end

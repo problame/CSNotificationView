@@ -9,7 +9,9 @@
 #import "CSRootViewController.h"
 #import "CSNotificationView.h"
 
-@interface CSRootViewController ()
+@interface CSRootViewController (){
+    CSNotificationView *currentCard;
+}
 
 @end
 
@@ -27,12 +29,20 @@
 }
 
 - (IBAction)showCustom:(id)sender {
-    [CSNotificationView showInViewController:self
-            tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
-                image:nil
-              message:@"No icon and a message that needs two rows and extra \
-                        presentation time to be displayed properly."
-             duration:5.8f];
+    CSNotificationView *progressCard = [CSNotificationView showProgressInViewController:self tintColor:[UIColor blueColor] image:nil message:@"Loading Data..."];
+    
+    [progressCard show];
+    
+    //Temporary Variable to keep track of the progress card
+    currentCard = progressCard;
+    
+    //show a button on the navigation bar to hide the progressBar on demand
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss" style:UIBarButtonItemStyleDone target:self action:@selector(dismissProgressCard)];
+}
+
+-(void)dismissProgressCard{
+    [currentCard dismiss];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 
