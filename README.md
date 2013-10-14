@@ -1,6 +1,7 @@
 #CSNotificationView
 
 Easy to use, iOS-7-style, semi-translucent notification view with blur that drops into `UIView` and `UITableView`.
+Also supports displaying progress.
 
 **Requires iOS 7.**
 
@@ -10,18 +11,18 @@ Easy to use, iOS-7-style, semi-translucent notification view with blur that drop
 &nbsp;
 <img src="https://f.cloud.github.com/assets/956573/1240925/375efbdc-2a14-11e3-9258-7fc4395ae019.png" width="30%"></img>
 &nbsp;
-<img src="https://f.cloud.github.com/assets/956573/1240927/37601cce-2a14-11e3-8963-daff170e5c05.png" width="30%"></img>
+<img src="https://f.cloud.github.com/assets/956573/1329610/502c2ed0-351a-11e3-859d-534c792a7c65.png" width="30%"></img>
 
 
 </div>
 
 ##Example code
 
-Predefined styles
+###Fire up quickly
 
 ```objc
 [CSNotificationView showInViewController:self
-	 								style:CSNotificationViewStyleError
+									style:CSNotificationViewStyleError
 								  message:@"A critical error happened."];
 									  
 [CSNotificationView showInViewController:self
@@ -31,7 +32,27 @@ Predefined styles
 									  
 ```
 
-Customize appearance
+###Activity
+
+```objc
+CSNotificationView* note = (...);
+note.showingActivity = YES;
+
+[note setVisible:YES animated:YES completion:nil];
+(...)
+[note dismissWithStyle:CSNotificationViewStyleSuccess message:@"Sucess!"
+	      duration:kCSNotificationViewDefaultShowDuration animated:YES];
+```
+
+###Customize appearance
+
+####Use your custom image
+
+```objc
+note.image = [UIImage imageNamed:@"mustache"];
+```
+
+####Flexible with text & no images
 
 ```objc
 [CSNotificationView showInViewController:self
@@ -42,6 +63,7 @@ Customize appearance
          duration:5.8f];
 
 ```
+
 
 ##License
 
