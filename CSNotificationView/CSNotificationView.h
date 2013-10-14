@@ -19,6 +19,8 @@ typedef enum {
 
 @interface CSNotificationView : UIView
 
+#pragma mark + quick presentation
+
 + (void)showInViewController:(UIViewController*)viewController
              style:(CSNotificationViewStyle)style
            message:(NSString*)message;
@@ -28,6 +30,24 @@ typedef enum {
              image:(UIImage*)image
            message:(NSString*)message
           duration:(NSTimeInterval)duration;
+
+#pragma mark + creators
+
++ (CSNotificationView*)notificationViewWithParentViewController:(UIViewController*)viewController
+                                                      tintColor:(UIColor*)tintColor
+                                                          image:(UIImage*)image
+                                                        message:(NSString*)message;
+
+#pragma mark - initialization
+
+- (instancetype)initWithParentViewController:(UIViewController*)viewController;
+
+#pragma mark - presentation
+
+- (void)setVisible:(BOOL)showing animated:(BOOL)animated completion:(void (^)())completion;
+@property (readonly, nonatomic, getter = isShowing) BOOL visible;
+
+#pragma mark - visible properties
 
 /**
  The image property should be used for setting the image displayed in imageView

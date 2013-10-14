@@ -17,6 +17,7 @@
 
 #pragma mark - presentation
 @property (nonatomic, weak) UIViewController* parentViewController;
+@property (nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - content views
 @property (nonatomic, strong) UIImageView* imageView;
@@ -27,7 +28,7 @@
 @implementation CSNotificationView
 @dynamic blurTintColor;
 
-#pragma mark + public
+#pragma mark + quick presentation
 
 + (void)showInViewController:(UIViewController*)viewController
          tintColor:(UIColor*)tintColor
@@ -42,20 +43,12 @@
     note.image = image;
     note.textLabel.text = message;
     
-    [viewController.view addSubview:note];
-    
-    __block typeof(viewController) weakViewController = viewController;
-    [UIView animateWithDuration:0.4 animations:^{
-        [note setFrame:[CSNotificationView displayFrameInParentViewController:weakViewController]];
-    } completion:^(BOOL finished) {
-        dispatch_time_t popTime =
-                dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
+    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    [note setVisible:YES animated:YES completion:^{
+        double delayInSeconds = duration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [UIView animateWithDuration:0.4 animations:^{
-                [note setFrame:[CSNotificationView offscreenFrameForInParentViewController:weakViewController]];
-            } completion:^(BOOL finished) {
-                [note removeFromSuperview];
-            }];
+            completion();
         });
     }];
     
@@ -90,39 +83,28 @@
                           duration:kCSNotificationViewDefaultShowDuration];
 }
 
-#pragma mark + frame calculation
+#pragma mark + creators
 
-+ (CGRect)offscreenFrameForInParentViewController:(UIViewController*)viewController
++ (CSNotificationView*)notificationViewWithParentViewController:(UIViewController*)viewController
+                                                      tintColor:(UIColor*)tintColor
+                                                          image:(UIImage*)image
+                                                        message:(NSString*)message
 {
-    CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - viewController.topLayoutGuide.length,
-                                       CGRectGetWidth(viewController.view.frame),
-                                       kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+    NSParameterAssert(viewController);
     
-    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
-        UIScrollView* scrollView = (UIScrollView*)viewController.view;
-        offscreenFrame.origin.y -= scrollView.contentInset.top - scrollView.contentOffset.y;
-    }
-    return offscreenFrame;
-}
-
-+ (CGRect)displayFrameInParentViewController:(UIViewController*)viewController
-{
-    CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
-                                    kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+    CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
+    note.blurTintColor = tintColor;
+    note.image = image;
+    note.textLabel.text = message;
     
-    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
-        //Add offset
-        UIScrollView* scrollView = (UIScrollView*)viewController.view;
-        displayFrame.origin.y += scrollView.contentOffset.y;
-    }
-    return displayFrame;
+    return note;
 }
 
 #pragma mark - lifecycle
 
 - (instancetype)initWithParentViewController:(UIViewController*)viewController
 {
-    self = [super initWithFrame:[CSNotificationView offscreenFrameForInParentViewController:viewController]];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
         
         //Blur | thanks to https://github.com/JagCesar/iOS-blur for providing this under the WTFPL-license!
@@ -254,9 +236,8 @@
                        context:(void *)context
 {
     if ([object isEqual:self.parentViewController.view]) {
-        if ([keyPath isEqualToString:@"contentOffset"]) {
-            self.frame = [CSNotificationView
-                          displayFrameInParentViewController:self.parentViewController];
+        if ([keyPath isEqualToString:@"contentOffset"] && self.visible) {
+            self.frame = [self visibleFrame];
         }
     }
 }
@@ -272,6 +253,71 @@
 - (UIColor *)blurTintColor
 {
     return self.toolbar.barTintColor;
+}
+
+#pragma mark - presentation
+
+- (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)())completion
+{
+    if (_visible != visible) {
+        
+        NSTimeInterval animationDuration = animated ? 0.4 : 0.0;
+        CGRect startFrame = visible ? [self hiddenFrame]:[self visibleFrame];
+        CGRect endFrame = visible ? [self visibleFrame] : [self hiddenFrame];
+        
+        if (!self.superview) {
+            self.frame = startFrame;
+            [self.parentViewController.view addSubview:self];
+        }
+        
+        __block typeof(self) weakself = self;
+        [UIView animateWithDuration:animationDuration animations:^{
+            [weakself setFrame:endFrame];
+        } completion:^(BOOL finished) {
+            if (!visible) {
+                [weakself removeFromSuperview];
+            }
+            if (completion) {
+                completion();
+            }
+        }];
+        
+        _visible = visible;
+    } else if (completion) {
+        completion();
+    }
+}
+
+#pragma mark - frame calculation
+
+- (CGRect)visibleFrame
+{
+    UIViewController* viewController = self.parentViewController;
+    
+    CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
+                                     kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+    
+    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
+        //Add offset
+        UIScrollView* scrollView = (UIScrollView*)viewController.view;
+        displayFrame.origin.y += scrollView.contentOffset.y;
+    }
+    return displayFrame;
+}
+
+- (CGRect)hiddenFrame
+{
+    UIViewController* viewController = self.parentViewController;
+    
+    CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - viewController.topLayoutGuide.length,
+                                       CGRectGetWidth(viewController.view.frame),
+                                       kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+    
+    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
+        UIScrollView* scrollView = (UIScrollView*)viewController.view;
+        offscreenFrame.origin.y -= scrollView.contentInset.top - scrollView.contentOffset.y;
+    }
+    return offscreenFrame;
 }
 
 #pragma mark - image
