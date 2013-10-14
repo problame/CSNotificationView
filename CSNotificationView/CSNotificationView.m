@@ -62,15 +62,12 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
            message:(NSString *)message
 {
     UIColor* blurTintColor;
-    UIImage* image;
     switch (style) {
         case CSNotificationViewStyleSuccess:
             blurTintColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
-            image = [UIImage imageNamed:@"CSNotificationView_checkmarkIcon"];
             break;
         case CSNotificationViewStyleError:
             blurTintColor = [UIColor redColor];
-            image = [UIImage imageNamed:@"CSNotificationView_exclamationMarkIcon"];
             break;
         default:
             NSAssert(NO, @"You used an invalid notification style.");
@@ -81,7 +78,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     
     [CSNotificationView showInViewController:viewController
                          tintColor:blurTintColor
-                             image:image
+                             image:[CSNotificationView imageForStyle:style]
                            message:message
                           duration:kCSNotificationViewDefaultShowDuration];
 }
@@ -380,7 +377,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     }
 }
 
-#pragma mark -- helpers
+#pragma mark helpers
 
 - (UIColor*)legibleTextColorForBlurTintColor:(UIColor*)blurTintColor
 {
@@ -414,6 +411,22 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return result;
+}
+
++ (UIImage*)imageForStyle:(CSNotificationViewStyle)style
+{
+    UIImage* matchedImage = nil;
+    switch (style) {
+        case CSNotificationViewStyleSuccess:
+            matchedImage = [UIImage imageNamed:@"CSNotificationView_checkmarkIcon"];
+            break;
+        case CSNotificationViewStyleError:
+            matchedImage = [UIImage imageNamed:@"CSNotificationView_exclamationMarkIcon"];
+            break;
+        default:
+            break;
+    }
+    return matchedImage;
 }
 
 @end
