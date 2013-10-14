@@ -22,7 +22,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 @property (nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - content views
-@property (nonatomic, strong, readonly) UIView* symbolView; // is managed by - (void)useViewForSymbolView:(UIView*)view
+@property (nonatomic, strong, readonly) UIView* symbolView; // is updated by -(void)updateSymbolView
 @property (nonatomic, strong) UILabel* textLabel;
 @property (nonatomic, strong) UIColor* contentColor;
 
@@ -158,7 +158,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             }
             //symbolView
             {
-                [self useViewForSymbolView:nil];
+                [self updateSymbolView];
             }
         }
         
@@ -178,8 +178,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 - (void)updateConstraints
 {
     [self removeConstraints:self.constraints];
-    
-    self.symbolView.translatesAutoresizingMaskIntoConstraints = NO;
     
     CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
                                 kCSNotificationViewSymbolViewSidelength : 0.0f;
@@ -322,44 +320,54 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 #pragma mark - symbol view
 
-- (void)useViewForSymbolView:(UIView*)view
+- (void)updateSymbolView
 {
     [self.symbolView removeFromSuperview];
-    if (!view) {
+    
+    if (self.isShowingActivity) {
+        UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        indicator.color = self.contentColor;
+        [indicator startAnimating];
+        _symbolView = indicator;
+    } else if (self.image) {
+        //Generate UIImageView for symbolView
+        UIImageView* imageView = [[UIImageView alloc] init];
+        imageView.opaque = NO;
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        imageView.contentMode = UIViewContentModeCenter;
+        imageView.image = [self imageFromAlphaChannelOfImage:self.image replacementColor:self.contentColor];
+        _symbolView = imageView;
+    } else {
         _symbolView = [[UIView alloc] initWithFrame:CGRectZero];
         _symbolView.tag = kCSNotificationViewEmptySymbolViewTag;
-    } else {
-        NSAssert(view.tag != kCSNotificationViewEmptySymbolViewTag, @"view is tagged with a tag that is used to identify an empty symbolView");
-        _symbolView = view;
     }
+    _symbolView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_symbolView];
     [self setNeedsUpdateConstraints];
+
 }
 
-#pragma mark - image
+#pragma mark -- image
 
 - (void)setImage:(UIImage *)image
 {
-    _image = image;
-    [self setupSymbolViewWithImage:_image];
+    if (![_image isEqual:image]) {
+        _image = image;
+        [self updateSymbolView];
+    }
 }
 
-- (void)setupSymbolViewWithImage:(UIImage*)image
+#pragma mark -- activity
+
+- (void)setShowingActivity:(BOOL)showingActivity
 {
-    if (!image) {
-        [self useViewForSymbolView:nil];
-        return;
+    if (_showingActivity != showingActivity) {
+        _showingActivity = showingActivity;
+        [self updateSymbolView];
     }
-    
-    //Generate UIImageView for symbolView
-    UIImageView* imageView = [[UIImageView alloc] init];
-    imageView.opaque = NO;
-    imageView.backgroundColor = [UIColor clearColor];
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    imageView.contentMode = UIViewContentModeCenter;
-    imageView.image = [self imageFromAlphaChannelOfImage:image replacementColor:self.contentColor];
-    [self useViewForSymbolView:imageView];
 }
+
 
 #pragma mark - content color
 
@@ -367,16 +375,8 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 {
     if (![_contentColor isEqual:contentColor]) {
         _contentColor = contentColor;
-        [self applyContentColor];
-    }
-    
-}
-
-- (void)applyContentColor
-{
-    self.textLabel.textColor = _contentColor;
-    if (self.image) {
-        [self setupSymbolViewWithImage:self.image];
+        self.textLabel.textColor = _contentColor;
+        [self updateSymbolView];
     }
 }
 

@@ -55,4 +55,6 @@ typedef enum {
  */
 @property (nonatomic, strong) UIImage* image;
 
+@property (nonatomic, getter = isShowingActivity) BOOL showingActivity;
+
 @end
