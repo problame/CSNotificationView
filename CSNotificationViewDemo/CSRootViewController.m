@@ -44,28 +44,49 @@
         return;
     }
     
-    CSNotificationView *progressCard = [CSNotificationView notificationViewWithParentViewController:self
-                                                                                          tintColor:[UIColor blueColor]
-                                                                                              image:nil message:@"I'm here until dismissal."];
+    self.permanentNotification =
+        [CSNotificationView notificationViewWithParentViewController:self
+            tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
+                image:nil message:@"I am running for two seconds."];
     
+    [self.permanentNotification setShowingActivity:YES];
     
-    self.permanentNotification = progressCard;
-    
-    //show a button on the navigation bar to hide the permanent view on demand
     __block typeof(self) weakself = self;
-    [progressCard setVisible:YES animated:YES completion:^{
-        weakself.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss" style:UIBarButtonItemStyleDone target:self action:@selector(dismissPermanentNotification)];
+    [self.permanentNotification setVisible:YES animated:YES completion:^{
+
+        weakself.navigationItem.rightBarButtonItem =
+                [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                 style:UIBarButtonItemStyleDone
+                                                target:weakself
+                                                action:@selector(cancel)];
+        
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakself success];
+        });
+        
     }];
 }
 
--(void)dismissPermanentNotification {
-    __block typeof(self) weakself = self;
-    [self.permanentNotification setVisible:NO animated:YES completion:^{
-        weakself.navigationItem.rightBarButtonItem = nil;
-        weakself.permanentNotification = nil;
-    }];
+- (void)cancel
+{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.permanentNotification dismissWithStyle:CSNotificationViewStyleError
+                                         message:@"Cancelled"
+                                        duration:kCSNotificationViewDefaultShowDuration animated:YES];
+    self.permanentNotification = nil;
+    
 }
 
+- (void)success
+{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.permanentNotification dismissWithStyle:CSNotificationViewStyleSuccess
+                                             message:@"Sucess!"
+                                            duration:kCSNotificationViewDefaultShowDuration animated:YES];
+    self.permanentNotification = nil;
+}
 
 
 @end

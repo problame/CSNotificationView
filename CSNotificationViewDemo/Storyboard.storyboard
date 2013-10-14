@@ -332,7 +332,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LCc-Pv-6C3"/>
-                        <barButtonItem title="Permanent" id="2kv-if-Wlf">
+                        <barButtonItem title="Progress" id="2kv-if-Wlf">
                             <connections>
                                 <action selector="showPermanent:" destination="twC-qG-9bn" id="ELx-W2-Hhd"/>
                             </connections>
