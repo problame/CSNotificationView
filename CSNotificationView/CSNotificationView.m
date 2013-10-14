@@ -270,6 +270,27 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     }
 }
 
+- (void)dismissWithStyle:(CSNotificationViewStyle)style message:(NSString *)message duration:(NSTimeInterval)duration animated:(BOOL)animated
+{
+    NSParameterAssert(message);
+
+    __block typeof(self) weakself = self;
+    [UIView animateWithDuration:0.1 animations:^{
+
+        weakself.showingActivity = NO;
+        weakself.image = [CSNotificationView imageForStyle:style];
+        weakself.textLabel.text = message;
+        weakself.blurTintColor = [CSNotificationView blurTintColorForStyle:style];
+        
+    } completion:^(BOOL finished) {
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakself setVisible:NO animated:animated completion:nil];
+        });
+    }];
+}
+
 #pragma mark - frame calculation
 
 - (CGRect)visibleFrame
