@@ -61,23 +61,10 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
              style:(CSNotificationViewStyle)style
            message:(NSString *)message
 {
-    UIColor* blurTintColor;
-    switch (style) {
-        case CSNotificationViewStyleSuccess:
-            blurTintColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
-            break;
-        case CSNotificationViewStyleError:
-            blurTintColor = [UIColor redColor];
-            break;
-        default:
-            NSAssert(NO, @"You used an invalid notification style.");
-            break;
-    }
     
-    NSAssert(blurTintColor, @"'blurTintColor' is not defined");
     
     [CSNotificationView showInViewController:viewController
-                         tintColor:blurTintColor
+                         tintColor:[CSNotificationView blurTintColorForStyle:style]
                              image:[CSNotificationView imageForStyle:style]
                            message:message
                           duration:kCSNotificationViewDefaultShowDuration];
@@ -427,6 +414,22 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             break;
     }
     return matchedImage;
+}
+
++ (UIColor*)blurTintColorForStyle:(CSNotificationViewStyle)style
+{
+    UIColor* blurTintColor;
+    switch (style) {
+        case CSNotificationViewStyleSuccess:
+            blurTintColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+            break;
+        case CSNotificationViewStyleError:
+            blurTintColor = [UIColor redColor];
+            break;
+        default:
+            break;
+    }
+    return blurTintColor;
 }
 
 @end
