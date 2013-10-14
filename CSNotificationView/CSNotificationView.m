@@ -8,6 +8,8 @@
 
 #import "CSNotificationView.h"
 
+static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
+
 @interface CSNotificationView ()
 
 #pragma mark - blur effect
@@ -20,8 +22,9 @@
 @property (nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - content views
-@property (nonatomic, strong) UIImageView* imageView;
+@property (nonatomic, strong, readonly) UIView* symbolView; // is managed by - (void)useViewForSymbolView:(UIView*)view
 @property (nonatomic, strong) UILabel* textLabel;
+@property (nonatomic, strong) UIColor* contentColor;
 
 @end
 
@@ -153,14 +156,9 @@
                 _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
                 [self addSubview:_textLabel];
             }
-            //imageView
+            //symbolView
             {
-                _imageView = [[UIImageView alloc] init];
-                _imageView.opaque = NO;
-                _imageView.backgroundColor = [UIColor clearColor];
-                _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-                _imageView.contentMode = UIViewContentModeCenter;
-                [self addSubview:_imageView];
+                [self useViewForSymbolView:nil];
             }
         }
         
@@ -181,30 +179,32 @@
 {
     [self removeConstraints:self.constraints];
     
-    CGFloat imageViewWidth = self.imageView.image ?
-                                kCSNotificationViewImageViewSidelength : 0.0f;
-    CGFloat imageViewHeight = kCSNotificationViewImageViewSidelength;
+    self.symbolView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
+                                kCSNotificationViewSymbolViewSidelength : 0.0f;
+    CGFloat symbolViewHeight = kCSNotificationViewSymbolViewSidelength;
     
     NSDictionary* metrics =
-        @{@"imageViewWidth": [NSNumber numberWithFloat:imageViewWidth],
-          @"imageViewHeight":[NSNumber numberWithFloat:imageViewHeight]};
+        @{@"symbolViewWidth": [NSNumber numberWithFloat:symbolViewWidth],
+          @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight]};
     
     [self addConstraints:[NSLayoutConstraint
-        constraintsWithVisualFormat:@"H:|-(4)-[_imageView(imageViewWidth)]-(5)-[_textLabel]-(10)-|"
+        constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
                             options:0
                             metrics:metrics
-                              views:NSDictionaryOfVariableBindings(_textLabel, _imageView)]];
+                              views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
     
     [self addConstraints:[NSLayoutConstraint
-        constraintsWithVisualFormat:@"V:[_imageView(imageViewHeight)]"
+        constraintsWithVisualFormat:@"V:[_symbolView(symbolViewHeight)]"
                             options:0
                             metrics:metrics
-                                views:NSDictionaryOfVariableBindings(_imageView)]];
+                                views:NSDictionaryOfVariableBindings(_symbolView)]];
     
     CGFloat topInset = CGRectGetHeight(self.frame) - 4;
     
     [self addConstraint:[NSLayoutConstraint
-                constraintWithItem:_imageView
+                constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
                          relatedBy:NSLayoutRelationEqual
                             toItem:self
@@ -215,7 +215,7 @@
         constraintWithItem:_textLabel
                  attribute:NSLayoutAttributeCenterY
                  relatedBy:NSLayoutRelationEqual
-                    toItem:_imageView
+                    toItem:_symbolView
                  attribute:NSLayoutAttributeCenterY
                 multiplier:1.0f constant:0]];
     
@@ -247,7 +247,7 @@
 - (void)setBlurTintColor:(UIColor *)blurTintColor
 {
     [self.toolbar setBarTintColor:blurTintColor];
-    [self updateForegroundColorsForBlurTintColor:blurTintColor];
+    self.contentColor = [self legibleTextColorForBlurTintColor:blurTintColor];
 }
 
 - (UIColor *)blurTintColor
@@ -320,22 +320,64 @@
     return offscreenFrame;
 }
 
+#pragma mark - symbol view
+
+- (void)useViewForSymbolView:(UIView*)view
+{
+    [self.symbolView removeFromSuperview];
+    if (!view) {
+        _symbolView = [[UIView alloc] initWithFrame:CGRectZero];
+        _symbolView.tag = kCSNotificationViewEmptySymbolViewTag;
+    } else {
+        NSAssert(view.tag != kCSNotificationViewEmptySymbolViewTag, @"view is tagged with a tag that is used to identify an empty symbolView");
+        _symbolView = view;
+    }
+    [self addSubview:_symbolView];
+    [self setNeedsUpdateConstraints];
+}
+
 #pragma mark - image
 
 - (void)setImage:(UIImage *)image
 {
     _image = image;
-    [self updateForegroundColorsForBlurTintColor:self.blurTintColor];
+    [self setupSymbolViewWithImage:_image];
 }
 
-#pragma mark - dynamic foreground color
-
-- (void)updateForegroundColorsForBlurTintColor:(UIColor*)blurTintColor
+- (void)setupSymbolViewWithImage:(UIImage*)image
 {
-    NSParameterAssert(blurTintColor);
-    UIColor* legibleColor = [self legibleTextColorForBlurTintColor:blurTintColor];
-    self.textLabel.textColor = legibleColor;
-    self.imageView.image = [self imageFromAlphaChannelOfImage:self.image replacementColor:legibleColor];
+    if (!image) {
+        [self useViewForSymbolView:nil];
+        return;
+    }
+    
+    //Generate UIImageView for symbolView
+    UIImageView* imageView = [[UIImageView alloc] init];
+    imageView.opaque = NO;
+    imageView.backgroundColor = [UIColor clearColor];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.image = [self imageFromAlphaChannelOfImage:image replacementColor:self.contentColor];
+    [self useViewForSymbolView:imageView];
+}
+
+#pragma mark - content color
+
+- (void)setContentColor:(UIColor *)contentColor
+{
+    if (![_contentColor isEqual:contentColor]) {
+        _contentColor = contentColor;
+        [self applyContentColor];
+    }
+    
+}
+
+- (void)applyContentColor
+{
+    self.textLabel.textColor = _contentColor;
+    if (self.image) {
+        [self setupSymbolViewWithImage:self.image];
+    }
 }
 
 #pragma mark -- helpers
