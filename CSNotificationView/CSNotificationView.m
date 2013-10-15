@@ -13,7 +13,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 @interface CSNotificationView ()
 
 #pragma mark - blur effect
-@property (nonatomic) UIColor* blurTintColor;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) CALayer *blurLayer;
 
@@ -29,7 +28,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 @end
 
 @implementation CSNotificationView
-@dynamic blurTintColor;
+@dynamic tintColor;
 
 #pragma mark + quick presentation
 
@@ -42,7 +41,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     NSAssert(message, @"'message' must not be nil.");
     
     __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
-    note.blurTintColor = tintColor;
+    note.tintColor = tintColor;
     note.image = image;
     note.textLabel.text = message;
     
@@ -80,7 +79,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     NSParameterAssert(viewController);
     
     CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
-    note.blurTintColor = tintColor;
+    note.tintColor = tintColor;
     note.image = image;
     note.textLabel.text = message;
     
@@ -224,15 +223,15 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     }
 }
 
-#pragma mark - blur
+#pragma mark - tint color
 
-- (void)setBlurTintColor:(UIColor *)blurTintColor
+- (void)setTintColor:(UIColor *)tintColor
 {
-    [self.toolbar setBarTintColor:blurTintColor];
-    self.contentColor = [self legibleTextColorForBlurTintColor:blurTintColor];
+    [self.toolbar setBarTintColor:tintColor];
+    self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
-- (UIColor *)blurTintColor
+- (UIColor *)tintColor
 {
     return self.toolbar.barTintColor;
 }
@@ -280,7 +279,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         weakself.showingActivity = NO;
         weakself.image = [CSNotificationView imageForStyle:style];
         weakself.textLabel.text = message;
-        weakself.blurTintColor = [CSNotificationView blurTintColorForStyle:style];
+        weakself.tintColor = [CSNotificationView blurTintColorForStyle:style];
         
     } completion:^(BOOL finished) {
         double delayInSeconds = 2.0;

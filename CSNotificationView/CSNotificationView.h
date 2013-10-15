@@ -56,6 +56,8 @@ typedef enum {
  */
 @property (nonatomic, strong) UIImage* image;
 
+@property (nonatomic, strong) UIColor* tintColor;
+
 @property (nonatomic, getter = isShowingActivity) BOOL showingActivity;
 
 @end
