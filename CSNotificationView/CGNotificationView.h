@@ -1,9 +1,8 @@
 //
-//  CSNotificationView.h
-//  CSNotificationView
+//  CGNotificationView.h
+//  CGNotificationView
 //
-//  Created by Christian Schwarz on 01.09.13.
-//  Copyright (c) 2013 Christian Schwarz. Check LICENSE.md.
+//  Orignal CSNotificationView Created by Christian Schwarz on 01.09.13.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,7 +16,7 @@ typedef enum {
     CSNotificationViewStyleError,
 } CSNotificationViewStyle;
 
-@interface CSNotificationView : UIView
+@interface CGNotificationView : UIView
 
 #pragma mark + quick presentation
 
@@ -33,7 +32,7 @@ typedef enum {
 
 #pragma mark + creators
 
-+ (CSNotificationView*)notificationViewWithParentViewController:(UIViewController*)viewController
++ (CGNotificationView*)notificationViewWithParentViewController:(UIViewController*)viewController
                                                       tintColor:(UIColor*)tintColor
                                                           image:(UIImage*)image
                                                         message:(NSString*)message;
