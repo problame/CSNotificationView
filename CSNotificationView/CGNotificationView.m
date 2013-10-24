@@ -1,16 +1,16 @@
 //
-//  CSNotificationView.m
-//  CSNotificationView
+//  CGNotificationView.m
+//  CGNotificationView
 //
-//  Created by Christian Schwarz on 01.09.13.
-//  Copyright (c) 2013 Christian Schwarz. Check LICENSE.md.
+//  Orginal CSNotificationView Created by Christian Schwarz on 01.09.13.
+//  
 //
 
-#import "CSNotificationView.h"
+#import "CGNotificationView.h"
 
 static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
-@interface CSNotificationView ()
+@interface CGNotificationView ()
 
 #pragma mark - blur effect
 @property (nonatomic, strong) UIToolbar *toolbar;
