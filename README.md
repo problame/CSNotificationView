@@ -40,7 +40,7 @@ note.showingActivity = YES;
 
 [note setVisible:YES animated:YES completion:nil];
 (...)
-[note dismissWithStyle:CSNotificationViewStyleSuccess message:@"Sucess!"
+[note dismissWithStyle:CSNotificationViewStyleSuccess message:@"Success!"
 	      duration:kCSNotificationViewDefaultShowDuration animated:YES];
 ```
 
