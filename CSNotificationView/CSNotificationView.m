@@ -18,6 +18,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 #pragma mark - presentation
 @property (nonatomic, weak) UIViewController* parentViewController;
+@property (nonatomic, weak) UINavigationController* parentNavigationController;
 @property (nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - content views
@@ -114,12 +115,16 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         //Parent view
         {
             self.parentViewController = viewController;
-            if ([self.parentViewController.view isKindOfClass:[UIScrollView class]]) {
-                [self.parentViewController.view addObserver:self
-                                  forKeyPath:@"contentOffset"
-                                     options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                                     context:NULL];
+            
+            NSAssert(!([self.parentViewController isKindOfClass:[UITableViewController class]] && !self.parentViewController.navigationController), @"Due to a bug in iOS 7.0.1|2|3 UITableViewController, CSNotificationView cannot present in UITableViewController without a parent UINavigationController");
+            
+            if (self.parentViewController.navigationController) {
+                self.parentNavigationController = self.parentViewController.navigationController;
             }
+            if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
+                self.parentNavigationController = (UINavigationController*)self.parentViewController;
+            }
+            
         }
         
         //Content views
@@ -147,13 +152,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         
     }
     return self;
-}
-
-- (void)dealloc
-{
-    if ([self.parentViewController.view isKindOfClass:[UIScrollView class]]) {
-        [self.parentViewController.view removeObserver:self forKeyPath:@"contentOffset"];
-    }
 }
 
 #pragma mark - layout
@@ -209,20 +207,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     self.blurLayer.frame = self.bounds;
 }
 
-#pragma mark - kvo
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
-{
-    if ([object isEqual:self.parentViewController.view]) {
-        if ([keyPath isEqualToString:@"contentOffset"] && self.visible) {
-            self.frame = [self visibleFrame];
-        }
-    }
-}
-
 #pragma mark - tint color
 
 - (void)setTintColor:(UIColor *)tintColor
@@ -248,7 +232,17 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         
         if (!self.superview) {
             self.frame = startFrame;
-            [self.parentViewController.view addSubview:self];
+            
+            if (self.parentNavigationController) {
+                for (UIView* view in self.parentNavigationController.view.subviews) {
+                    if ([view isKindOfClass:[UINavigationBar class]]) {
+                        [self.parentNavigationController.view insertSubview:self belowSubview:view];
+                    }
+                }
+            } else {
+                [self.parentViewController.view addSubview:self];
+            }
+            
         }
         
         __block typeof(self) weakself = self;
@@ -292,18 +286,31 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 #pragma mark - frame calculation
 
+//Workaround as there is a bug: sometimes, when accessing topLayoutGuide, it will render contentSize of UITableViewControllers to be {0, 0}
+- (CGFloat)topLayoutGuideLengthCalculation
+{
+    CGFloat top = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
+    if (self.parentNavigationController) {
+        
+        for (UIView* view in self.parentNavigationController.view.subviews) {
+            if ([view isKindOfClass:[UINavigationBar class]]) {
+                top += CGRectGetHeight(view.frame);
+                break;
+            }
+        }
+    }
+    return top;
+}
+
 - (CGRect)visibleFrame
 {
     UIViewController* viewController = self.parentViewController;
     
+    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
+
     CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
-                                     kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+                                     kCSNotificationViewHeight + topLayoutGuideLength);
     
-    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
-        //Add offset
-        UIScrollView* scrollView = (UIScrollView*)viewController.view;
-        displayFrame.origin.y += scrollView.contentOffset.y;
-    }
     return displayFrame;
 }
 
@@ -311,14 +318,12 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 {
     UIViewController* viewController = self.parentViewController;
     
-    CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - viewController.topLayoutGuide.length,
-                                       CGRectGetWidth(viewController.view.frame),
-                                       kCSNotificationViewHeight + viewController.topLayoutGuide.length);
+    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
     
-    if ([viewController.view isKindOfClass:[UIScrollView class]]) {
-        UIScrollView* scrollView = (UIScrollView*)viewController.view;
-        offscreenFrame.origin.y -= scrollView.contentInset.top - scrollView.contentOffset.y;
-    }
+    CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,
+                                       CGRectGetWidth(viewController.view.frame),
+                                       kCSNotificationViewHeight + topLayoutGuideLength);
+    
     return offscreenFrame;
 }
 

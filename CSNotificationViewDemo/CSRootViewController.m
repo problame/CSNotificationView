@@ -18,18 +18,18 @@
 @implementation CSRootViewController
 
 - (IBAction)showError:(id)sender {
-    [CSNotificationView showInViewController:self
+    [CSNotificationView showInViewController:self.navigationController
                                        style:CSNotificationViewStyleError
                                      message:@"A critical error happened."];
 }
 - (IBAction)showSuccess:(id)sender {
-    [CSNotificationView showInViewController:self
+    [CSNotificationView showInViewController:self.navigationController
                                        style:CSNotificationViewStyleSuccess
                                      message:@"Great, it works."];
 }
 
 - (IBAction)showCustom:(id)sender {
-    [CSNotificationView showInViewController:self
+    [CSNotificationView showInViewController:self.navigationController
             tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
                 image:nil
               message:@"No icon and a message that needs two rows and extra \
@@ -45,7 +45,7 @@
     }
     
     self.permanentNotification =
-        [CSNotificationView notificationViewWithParentViewController:self
+        [CSNotificationView notificationViewWithParentViewController:self.navigationController
             tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
                 image:nil message:@"I am running for two seconds."];
     
