@@ -29,7 +29,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 @end
 
 @implementation CSNotificationView
-@dynamic tintColor;
 
 #pragma mark + quick presentation
 
@@ -211,13 +210,10 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 - (void)setTintColor:(UIColor *)tintColor
 {
-    [self.toolbar setBarTintColor:tintColor];
+    _tintColor = tintColor;
+    //Use 0.6 alpha value for translucency blur in UIToolbar
+    [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
-}
-
-- (UIColor *)tintColor
-{
-    return self.toolbar.barTintColor;
 }
 
 #pragma mark - presentation
