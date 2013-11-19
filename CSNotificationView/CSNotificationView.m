@@ -149,6 +149,8 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             }
         }
         
+        self.autoresizingMask = UIViewAutoresizingNone;
+        
     }
     return self;
 }
@@ -230,11 +232,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             self.frame = startFrame;
             
             if (self.parentNavigationController) {
-                for (UIView* view in self.parentNavigationController.view.subviews) {
-                    if ([view isKindOfClass:[UINavigationBar class]]) {
-                        [self.parentNavigationController.view insertSubview:self belowSubview:view];
-                    }
-                }
+                [self.parentNavigationController.view insertSubview:self belowSubview:self.parentNavigationController.navigationBar];
             } else {
                 [self.parentViewController.view addSubview:self];
             }
@@ -286,21 +284,18 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 - (CGFloat)topLayoutGuideLengthCalculation
 {
     CGFloat top = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
+    
     if (self.parentNavigationController) {
         
-        for (UIView* view in self.parentNavigationController.view.subviews) {
-            if ([view isKindOfClass:[UINavigationBar class]]) {
-                top += CGRectGetHeight(view.frame);
-                break;
-            }
-        }
+        top += CGRectIntersection(self.parentNavigationController.view.bounds, self.parentNavigationController.navigationBar.frame).size.height;
     }
+    
     return top;
 }
 
 - (CGRect)visibleFrame
 {
-    UIViewController* viewController = self.parentViewController;
+    UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
@@ -312,7 +307,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 - (CGRect)hiddenFrame
 {
-    UIViewController* viewController = self.parentViewController;
+    UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
     
@@ -321,6 +316,12 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
                                        kCSNotificationViewHeight + topLayoutGuideLength);
     
     return offscreenFrame;
+}
+
+- (CGSize)intrinsicContentSize
+{
+    CGRect currentRect = self.visible ? [self visibleFrame] : [self hiddenFrame];
+    return currentRect.size;
 }
 
 #pragma mark - symbol view
