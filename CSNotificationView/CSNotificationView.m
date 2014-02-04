@@ -10,7 +10,10 @@
 
 static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
-@interface CSNotificationView ()
+@interface CSNotificationView (){
+    UIView *_messageView;
+    UIDynamicAnimator *_animator;
+}
 
 #pragma mark - blur effect
 @property (nonatomic, strong) UIToolbar *toolbar;
@@ -93,9 +96,12 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     self = [super initWithFrame:CGRectZero];
     if (self) {
         
+        _messageView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_messageView];
+        
         //Blur | thanks to https://github.com/JagCesar/iOS-blur for providing this under the WTFPL-license!
         {
-            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
+            [self setToolbar:[[UIToolbar alloc] initWithFrame:[_messageView bounds]]];
             [self setBlurLayer:[[self toolbar] layer]];
             
             UIView *blurView = [UIView new];
@@ -103,12 +109,13 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             [blurView.layer addSublayer:[self blurLayer]];
             [blurView setTranslatesAutoresizingMaskIntoConstraints:NO];
             [blurView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-            [self insertSubview:blurView atIndex:0];
+            [_messageView insertSubview:blurView atIndex:0];
             
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[blurView]-(-1)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
+            [_messageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
+            [_messageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[blurView]-(-1)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
             
             [self setBackgroundColor:[UIColor clearColor]];
+            [_messageView setBackgroundColor:[UIColor clearColor]];
         }
         
         //Parent view
@@ -141,7 +148,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
                 _textLabel.numberOfLines = 2;
                 _textLabel.textColor = [UIColor whiteColor];
                 _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
-                [self addSubview:_textLabel];
+                [_messageView addSubview:_textLabel];
             }
             //symbolView
             {
@@ -150,7 +157,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         }
         
         self.autoresizingMask = UIViewAutoresizingNone;
-        
+        _messageView.autoresizingMask = UIViewAutoresizingNone;
     }
     return self;
 }
@@ -159,7 +166,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 - (void)updateConstraints
 {
-    [self removeConstraints:self.constraints];
+    [_messageView removeConstraints:_messageView.constraints];
     
     CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
                                 kCSNotificationViewSymbolViewSidelength : 0.0f;
@@ -169,29 +176,29 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         @{@"symbolViewWidth": [NSNumber numberWithFloat:symbolViewWidth],
           @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight]};
     
-    [self addConstraints:[NSLayoutConstraint
+    [_messageView addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
                             options:0
                             metrics:metrics
                               views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
     
-    [self addConstraints:[NSLayoutConstraint
+    [_messageView addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"V:[_symbolView(symbolViewHeight)]"
                             options:0
                             metrics:metrics
                                 views:NSDictionaryOfVariableBindings(_symbolView)]];
     
-    CGFloat topInset = CGRectGetHeight(self.frame) - 4;
+    CGFloat topInset = CGRectGetHeight(_messageView.frame) - 4;
     
-    [self addConstraint:[NSLayoutConstraint
+    [_messageView addConstraint:[NSLayoutConstraint
                 constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
                          relatedBy:NSLayoutRelationEqual
-                            toItem:self
+                            toItem:_messageView
                          attribute:NSLayoutAttributeBottom
                          multiplier:0.0f constant:topInset]];
     
-    [self addConstraint:[NSLayoutConstraint
+    [_messageView addConstraint:[NSLayoutConstraint
         constraintWithItem:_textLabel
                  attribute:NSLayoutAttributeCenterY
                  relatedBy:NSLayoutRelationEqual
@@ -205,7 +212,8 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.blurLayer.frame = self.bounds;
+    _messageView.frame = [self hiddenFrame];
+    self.blurLayer.frame = _messageView.bounds;
 }
 
 #pragma mark - tint color
@@ -224,33 +232,55 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 {
     if (_visible != visible) {
         
-        NSTimeInterval animationDuration = animated ? 0.4 : 0.0;
-        CGRect startFrame = visible ? [self hiddenFrame]:[self visibleFrame];
-        CGRect endFrame = visible ? [self visibleFrame] : [self hiddenFrame];
+        self.frame = [self bigFrame];
         
-        if (!self.superview) {
-            self.frame = startFrame;
-            
-            if (self.parentNavigationController) {
-                [self.parentNavigationController.view insertSubview:self belowSubview:self.parentNavigationController.navigationBar];
-            } else {
-                [self.parentViewController.view addSubview:self];
-            }
-            
+        if (self.parentNavigationController) {
+            [self.parentNavigationController.view insertSubview:self belowSubview:self.parentNavigationController.navigationBar];
+        } else {
+            [self.parentViewController.view addSubview:self];
         }
         
-        __block typeof(self) weakself = self;
-        [UIView animateWithDuration:animationDuration animations:^{
-            [weakself setFrame:endFrame];
-        } completion:^(BOOL finished) {
-            if (!visible) {
-                [weakself removeFromSuperview];
-            }
+        if (visible) {
+            _messageView.frame = [self hiddenFrame];
+            
+            UIDynamicAnimator *animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+            
+            UIGravityBehavior *gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[_messageView]];
+            
+            UICollisionBehavior *collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[_messageView]];
+            collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+            
+            UIDynamicItemBehavior *dynamicItem = [[UIDynamicItemBehavior alloc] initWithItems:@[_messageView]];
+            dynamicItem.elasticity = 0.4;
+            dynamicItem.allowsRotation = NO;
+            
+            [animator addBehavior:dynamicItem];
+            [animator addBehavior:collisionBehavior];
+            [animator addBehavior:gravityBehavior];
+            
+            _animator = animator;
+            
             if (completion) {
-                completion();
+                double delayInSeconds = 0.5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    completion();
+                });
             }
-        }];
-        
+        }else{
+            CGRect frame = [self hiddenFrame];
+            frame.origin.y = self.bounds.size.height - frame.size.height;
+            _messageView.frame = frame;
+            [UIView animateWithDuration:0.4 animations:^{
+                _messageView.frame = [self hiddenFrame];
+            }completion:^(BOOL finished) {
+                [self removeFromSuperview];
+                if (completion) {
+                    completion();
+                }
+            }];
+        }
+    
         _visible = visible;
     } else if (completion) {
         completion();
@@ -283,7 +313,13 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 //Workaround as there is a bug: sometimes, when accessing topLayoutGuide, it will render contentSize of UITableViewControllers to be {0, 0}
 - (CGFloat)topLayoutGuideLengthCalculation
 {
-    CGFloat top = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
+    CGFloat top = 0;
+    
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        top = CGRectGetWidth([[UIApplication sharedApplication] statusBarFrame]);
+    }else{
+        top = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
+    }
     
     if (self.parentNavigationController) {
         
@@ -293,35 +329,43 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     return top;
 }
 
-- (CGRect)visibleFrame
+- (CGFloat)widthLayoutGuideLengthCalculation
 {
-    UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
+    CGFloat width = 0;
     
-    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        width = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
+    }else{
+        width = CGRectGetWidth([[UIApplication sharedApplication] statusBarFrame]);
+    }
+    
+    return width;
+}
 
-    CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
-                                     kCSNotificationViewHeight + topLayoutGuideLength);
+- (CGRect)bigFrame
+{
+    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
+    
+    CGFloat totalWidth = [self widthLayoutGuideLengthCalculation];
+
+    CGRect displayFrame = CGRectMake(0, -(topLayoutGuideLength + kCSNotificationViewHeight),
+                                     totalWidth, 2*(kCSNotificationViewHeight + topLayoutGuideLength));
     
     return displayFrame;
 }
 
 - (CGRect)hiddenFrame
 {
-    UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
-    
-    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
-    
-    CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,
-                                       CGRectGetWidth(viewController.view.frame),
-                                       kCSNotificationViewHeight + topLayoutGuideLength);
-    
+    CGRect offscreenFrame = self.bounds;
+    offscreenFrame.size.height /= 2;
     return offscreenFrame;
 }
 
 - (CGSize)intrinsicContentSize
 {
-    CGRect currentRect = self.visible ? [self visibleFrame] : [self hiddenFrame];
-    return currentRect.size;
+    UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
+    return CGSizeMake(CGRectGetWidth(viewController.view.frame),
+                      kCSNotificationViewHeight);
 }
 
 #pragma mark - symbol view
@@ -349,7 +393,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         _symbolView.tag = kCSNotificationViewEmptySymbolViewTag;
     }
     _symbolView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_symbolView];
+    [_messageView addSubview:_symbolView];
     [self setNeedsUpdateConstraints];
 
 }
