@@ -225,8 +225,9 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     if (_visible != visible) {
         
         NSTimeInterval animationDuration = animated ? 0.4 : 0.0;
-        CGRect startFrame = visible ? [self hiddenFrame]:[self visibleFrame];
-        CGRect endFrame = visible ? [self visibleFrame] : [self hiddenFrame];
+        
+        CGRect startFrame, endFrame;
+        [self animationFramesForVisible:visible startFrame:&startFrame endFrame:&endFrame];
         
         if (!self.superview) {
             self.frame = startFrame;
@@ -255,6 +256,12 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
     } else if (completion) {
         completion();
     }
+}
+
+- (void)animationFramesForVisible:(BOOL)visible startFrame:(CGRect*)startFrame endFrame:(CGRect*)endFrame
+{
+    if (startFrame) *startFrame = visible ? [self hiddenFrame]:[self visibleFrame];
+    if (endFrame) *endFrame = visible ? [self visibleFrame] : [self hiddenFrame];
 }
 
 - (void)dismissWithStyle:(CSNotificationViewStyle)style message:(NSString *)message duration:(NSTimeInterval)duration animated:(BOOL)animated
