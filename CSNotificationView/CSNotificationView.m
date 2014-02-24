@@ -10,6 +10,8 @@
 
 static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
+static NSString* const kCSNotificationViewUINavigationControllerWillShowViewControllerNotification = @"UINavigationControllerWillShowViewControllerNotification";
+
 @interface CSNotificationView ()
 
 #pragma mark - blur effect
@@ -126,6 +128,11 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             
         }
         
+        //Notifications
+        {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationControllerWillShowViewControllerNotification:) name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
+        }
+        
         //Content views
         {
             //textLabel
@@ -153,6 +160,26 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
         
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
+}
+
+- (void)navigationControllerWillShowViewControllerNotification:(NSNotification*)note
+{
+    if (self.visible && [self.parentNavigationController isEqual:note.object]) {
+        
+        __block typeof(self) weakself = self;
+        [UIView animateWithDuration:0.1 animations:^{
+            CGRect endFrame;
+            [weakself animationFramesForVisible:weakself.visible startFrame:nil endFrame:&endFrame];
+            [weakself setFrame:endFrame];
+            [weakself updateConstraints];
+        }];
+        
+    }
 }
 
 #pragma mark - layout
