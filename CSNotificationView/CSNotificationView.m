@@ -292,9 +292,9 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 {
     CGFloat top = MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
     
-    if (self.parentNavigationController) {
+    if (self.parentNavigationController && !self.parentNavigationController.navigationBarHidden) {
         
-        top += CGRectIntersection(self.parentNavigationController.view.bounds, self.parentNavigationController.navigationBar.frame).size.height;
+        top += CGRectGetHeight(self.parentNavigationController.navigationBar.frame);
     }
     
     return top;
