@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A584" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MSf-fk-3a5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MSf-fk-3a5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Root View Controller - CSNotificationView Demo-->
@@ -340,10 +340,65 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ecA-FW-Myq"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="CSNotificationView Demo" id="nI2-iX-ooh"/>
+                    <connections>
+                        <segue destination="iup-Of-8go" kind="push" identifier="push" id="yLR-5X-5Wg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oY1-c6-VT6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="713" y="-276"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="cYt-1E-6dt">
+            <objects>
+                <viewController id="iup-Of-8go" customClass="CSDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T8k-vs-YE2"/>
+                        <viewControllerLayoutGuide type="bottom" id="zcp-z3-skI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OUz-8A-70R">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details controller without a navigation bar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="207" translatesAutoresizingMaskIntoConstraints="NO" id="s6m-hp-nCV">
+                                <rect key="frame" x="57" y="244" width="207" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhx-m2-ddy">
+                                <rect key="frame" x="143" y="293" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPushBack:" destination="iup-Of-8go" eventType="touchUpInside" id="NNc-8z-lDG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="s6m-hp-nCV" firstAttribute="top" secondItem="T8k-vs-YE2" secondAttribute="bottom" constant="180" id="2R1-vn-4O7"/>
+                            <constraint firstItem="lhx-m2-ddy" firstAttribute="centerX" secondItem="s6m-hp-nCV" secondAttribute="centerX" id="KUU-Jl-5FO"/>
+                            <constraint firstItem="s6m-hp-nCV" firstAttribute="centerX" secondItem="OUz-8A-70R" secondAttribute="centerX" id="NuA-z9-k6D"/>
+                            <constraint firstItem="lhx-m2-ddy" firstAttribute="top" secondItem="s6m-hp-nCV" secondAttribute="bottom" constant="8" symbolic="YES" id="yLK-N5-kNp"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="unG-wA-pK1"/>
+                        <barButtonItem title="Show notification" id="Dup-CX-U7B">
+                            <connections>
+                                <action selector="didPushPresentNotificationView:" destination="iup-Of-8go" id="8Qh-rZ-M1Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="3Vk-DW-obP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ef5-9j-hFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1326" y="-276"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dSL-Xm-l89">

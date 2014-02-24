@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */; };
 		8E4E1AB317D35355005EB12B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB217D35355005EB12B /* Foundation.framework */; };
 		8E4E1AB517D35355005EB12B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB417D35355005EB12B /* CoreGraphics.framework */; };
 		8E4E1AB717D35355005EB12B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB617D35355005EB12B /* UIKit.framework */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDetailsViewController.h; sourceTree = "<group>"; };
+		8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDetailsViewController.m; sourceTree = "<group>"; };
 		8E4E1AAF17D35355005EB12B /* CSNotificationViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSNotificationViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4E1AB217D35355005EB12B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E4E1AB417D35355005EB12B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,8 @@
 				8E4E1AE517D353F3005EB12B /* CSRootViewController.h */,
 				8E4E1AE617D353F3005EB12B /* CSRootViewController.m */,
 				8E4E1AE117D35364005EB12B /* Storyboard.storyboard */,
+				8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */,
+				8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */,
 				8E757B4F17D38CE80088845B /* Images.xcassets */,
 				8E4E1AB917D35355005EB12B /* Supporting Files */,
 			);
@@ -188,6 +193,7 @@
 				8E4E1AE717D353F3005EB12B /* CSRootViewController.m in Sources */,
 				8E4E1AC317D35355005EB12B /* CSAppDelegate.m in Sources */,
 				8E4E1ABF17D35355005EB12B /* main.m in Sources */,
+				8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */,
 				8E757B5017D38D360088845B /* CSNotificationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

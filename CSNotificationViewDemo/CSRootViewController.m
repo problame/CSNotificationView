@@ -88,5 +88,8 @@
     self.permanentNotification = nil;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"push" sender:nil];
+}
 
 @end
