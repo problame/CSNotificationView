@@ -30,7 +30,7 @@
     [CSNotificationView showInViewController:self
                                    tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
                                        image:nil
-                                     message:@"Some message that should resize when showing the navbar again." duration:5.0f];
+                                     message:@"Some message that should resize when showing the navbar again." duration:10.0f];
 }
 
 @end
