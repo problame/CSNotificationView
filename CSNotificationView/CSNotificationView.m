@@ -205,7 +205,8 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.blurLayer.frame = self.bounds;
+    //Update blur layer frame by updating the bounds frame
+    self.toolbar.frame = self.bounds;
 }
 
 #pragma mark - tint color
