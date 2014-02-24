@@ -17,6 +17,11 @@
 
 @implementation CSRootViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (IBAction)showError:(id)sender {
     [CSNotificationView showInViewController:self.navigationController
                                        style:CSNotificationViewStyleError
