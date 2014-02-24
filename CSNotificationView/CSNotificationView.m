@@ -102,7 +102,7 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
             [blurView setUserInteractionEnabled:NO];
             [blurView.layer addSublayer:[self blurLayer]];
             [blurView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [blurView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+            blurView.clipsToBounds = NO;
             [self insertSubview:blurView atIndex:0];
             
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
