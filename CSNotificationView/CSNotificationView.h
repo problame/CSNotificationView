@@ -31,6 +31,14 @@ typedef enum {
            message:(NSString*)message
           duration:(NSTimeInterval)duration;
 
++ (void)showInViewController:(UIViewController*)viewController
+                   tintColor:(UIColor*)tintColor
+                        font:(UIFont*)font
+               textAlignment:(NSTextAlignment)textAlignment
+                       image:(UIImage*)image
+                     message:(NSString*)message
+                    duration:(NSTimeInterval)duration;
+
 #pragma mark + creators
 
 + (CSNotificationView*)notificationViewWithParentViewController:(UIViewController*)viewController

@@ -58,6 +58,34 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     
 }
 
++ (void)showInViewController:(UIViewController*)viewController
+                   tintColor:(UIColor*)tintColor
+                        font:(UIFont*)font
+               textAlignment:(NSTextAlignment)textAlignment
+                       image:(UIImage*)image
+                     message:(NSString*)message
+                    duration:(NSTimeInterval)duration
+{
+    NSAssert(message, @"'message' must not be nil.");
+    
+    __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
+    note.tintColor = tintColor;
+    note.image = image;
+    note.textLabel.font = font;
+    note.textLabel.textAlignment = textAlignment;
+    note.textLabel.text = message;
+    
+    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    [note setVisible:YES animated:YES completion:^{
+        double delayInSeconds = duration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            completion();
+        });
+    }];
+    
+}
+
 + (void)showInViewController:(UIViewController *)viewController
              style:(CSNotificationViewStyle)style
            message:(NSString *)message
