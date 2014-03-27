@@ -17,6 +17,8 @@ typedef enum {
     CSNotificationViewStyleError,
 } CSNotificationViewStyle;
 
+typedef void(^TapHandlerBlock)();
+
 @interface CSNotificationView : UIView
 
 #pragma mark + quick presentation
@@ -53,6 +55,7 @@ typedef enum {
 #pragma mark - presentation
 
 - (void)setVisible:(BOOL)showing animated:(BOOL)animated completion:(void (^)())completion;
+- (void)setVisible:(BOOL)showing animated:(BOOL)animated tapHandler:(TapHandlerBlock)tapHandler completion:(void (^)())completion;
 - (void)dismissWithStyle:(CSNotificationViewStyle)style message:(NSString*)message duration:(NSTimeInterval)duration animated:(BOOL)animated;
 @property (readonly, nonatomic, getter = isShowing) BOOL visible;
 

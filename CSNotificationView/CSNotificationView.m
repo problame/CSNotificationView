@@ -28,6 +28,12 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
 @property (nonatomic, strong) UILabel* textLabel;
 @property (nonatomic, strong) UIColor* contentColor;
 
+#pragma mark - interaction
+@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
+@property (nonatomic, copy) TapHandlerBlock tapHandler;
+
+-(void)handleTapInView;
+
 @end
 
 @implementation CSNotificationView
@@ -274,6 +280,15 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
+#pragma mark - interaction
+
+-(void)handleTapInView
+{
+    NSAssert(self.tapHandler != nil, @"Tap handler can't be nil!");
+    
+    self.tapHandler();
+}
+
 #pragma mark - presentation
 
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)())completion
@@ -311,6 +326,27 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
         _visible = visible;
     } else if (completion) {
         completion();
+    }
+}
+
+-(void)setVisible:(BOOL)showing animated:(BOOL)animated tapHandler:(TapHandlerBlock)tapHandler completion:(void (^)())completion
+{
+    [self setVisible:showing animated:animated completion:completion];
+    if (tapHandler) {
+        
+        if (nil == self.tapRecognizer)
+            self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapInView)];
+        
+        self.tapHandler = tapHandler;
+        
+        //remove in the case of multiple calls != multiple handler calls
+        [self removeGestureRecognizer:self.tapRecognizer];
+        [self addGestureRecognizer:self.tapRecognizer];
+        self.userInteractionEnabled = YES;
+    }
+    else {
+        
+        [self removeGestureRecognizer:self.tapRecognizer];
     }
 }
 
