@@ -57,6 +57,10 @@
     [self.permanentNotification setShowingActivity:YES];
     
     __block typeof(self) weakself = self;
+    self.permanentNotification.tapHandler = ^{
+        [weakself cancel];
+    };
+    
     [self.permanentNotification setVisible:YES animated:YES completion:^{
 
         weakself.navigationItem.rightBarButtonItem =

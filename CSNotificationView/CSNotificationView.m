@@ -28,6 +28,9 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
 @property (nonatomic, strong) UILabel* textLabel;
 @property (nonatomic, strong) UIColor* contentColor;
 
+#pragma mark - interaction
+@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
+
 @end
 
 @implementation CSNotificationView
@@ -184,6 +187,13 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
             }
         }
         
+        //Interaction
+        {
+            //Tap gesture
+            self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapInView:)];
+            [self addGestureRecognizer:self.tapRecognizer];
+        }
+        
         self.autoresizingMask = UIViewAutoresizingNone;
         
     }
@@ -272,6 +282,16 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     //Use 0.6 alpha value for translucency blur in UIToolbar
     [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
+}
+
+#pragma mark - interaction
+
+-(void)handleTapInView:(UITapGestureRecognizer*)tapGestureRecognizer
+{
+    if (self.tapHandler && tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        self.tapHandler();
+    }
+    [self addGestureRecognizer:self.tapRecognizer];
 }
 
 #pragma mark - presentation

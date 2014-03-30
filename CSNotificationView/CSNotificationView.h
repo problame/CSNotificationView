@@ -17,6 +17,8 @@ typedef enum {
     CSNotificationViewStyleError,
 } CSNotificationViewStyle;
 
+typedef void(^CSVoidBlock)();
+
 @interface CSNotificationView : UIView
 
 #pragma mark + quick presentation
@@ -67,5 +69,7 @@ typedef enum {
 @property (nonatomic, strong) UIColor* tintColor;
 
 @property (nonatomic, getter = isShowingActivity) BOOL showingActivity;
+
+@property (nonatomic, copy) CSVoidBlock tapHandler;
 
 @end
