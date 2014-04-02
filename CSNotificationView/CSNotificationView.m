@@ -291,7 +291,6 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     if (self.tapHandler && tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.tapHandler();
     }
-    [self addGestureRecognizer:self.tapRecognizer];
 }
 
 #pragma mark - presentation
