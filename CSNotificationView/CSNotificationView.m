@@ -381,7 +381,8 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
-    CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
+    CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
+    CGRect displayFrame = CGRectMake(0, 0, transformedSize.width,
                                      kCSNotificationViewHeight + topLayoutGuideLength);
     
     return displayFrame;
@@ -392,9 +393,10 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
-    
+
+    CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
     CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,
-                                       CGRectGetWidth(viewController.view.frame),
+                                       transformedSize.width,
                                        kCSNotificationViewHeight + topLayoutGuideLength);
     
     return offscreenFrame;
