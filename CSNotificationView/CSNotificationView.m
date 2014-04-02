@@ -266,15 +266,13 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
                             metrics:metrics
                                 views:NSDictionaryOfVariableBindings(_symbolView)]];
     
-    CGFloat topInset = CGRectGetHeight(self.frame) - 4;
-    
     [self addConstraint:[NSLayoutConstraint
                 constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
                          relatedBy:NSLayoutRelationEqual
                             toItem:self
                          attribute:NSLayoutAttributeBottom
-                         multiplier:0.0f constant:topInset]];
+                         multiplier:1.0f constant:-3]];
     
     [self addConstraint:[NSLayoutConstraint
         constraintWithItem:_textLabel
