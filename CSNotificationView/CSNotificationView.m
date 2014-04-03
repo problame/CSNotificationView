@@ -234,7 +234,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == kCSNavigationBarObservationContext && [keyPath isEqualToString:kCSNavigationBarBoundsKeyPath]) {
-        self.frame = (CGRectGetMinY(self.frame) < 0) ? [self hiddenFrame] : [self visibleFrame];
+        self.frame = self.visible ? [self visibleFrame] : [self hiddenFrame];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
