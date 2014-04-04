@@ -401,7 +401,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
     CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
-    CGRect displayFrame = CGRectMake(0, 0, transformedSize.width,
+    CGRect displayFrame = CGRectMake(0, 0, fabs(transformedSize.width),
                                      kCSNotificationViewHeight + topLayoutGuideLength);
     
     return displayFrame;
@@ -415,7 +415,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 
     CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
     CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,
-                                       transformedSize.width,
+                                       fabs(transformedSize.width),
                                        kCSNotificationViewHeight + topLayoutGuideLength);
     
     return offscreenFrame;
