@@ -18,7 +18,7 @@ Also supports displaying progress.
 
 ##Example code
 
-###Fire up quickly
+###Quick presentation
 
 ```objc
 [CSNotificationView showInViewController:self
@@ -32,7 +32,7 @@ Also supports displaying progress.
 									  
 ```
 
-###Activity
+###UIActivityIndicatorView built-in
 
 ```objc
 CSNotificationView* note = (...);
@@ -44,9 +44,23 @@ note.showingActivity = YES;
 	      duration:kCSNotificationViewDefaultShowDuration animated:YES];
 ```
 
-###Customize appearance
+###Tap handling
 
-####Use your custom image
+Handle tap events on the notification using a block callback
+
+```objc
+    __block typeof(self) weakSelf = self;
+    self.loadingNotificationView.tapHandler = ^{
+        [weakSelf cancelOperationXYZ];
+        [weakSelf.loadingNotificationView dismissWithStyle:CSNotificationViewStyleError
+                                  	   message:@"Cancelled"
+                                  	  duration:kCSNotificationViewDefaultShowDuration animated:YES];
+    };
+```
+
+###Customization
+
+####Custom image / icon
 
 ```objc
 note.image = [UIImage imageNamed:@"mustache"];
