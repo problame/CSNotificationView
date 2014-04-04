@@ -12,6 +12,9 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 static NSString* const kCSNotificationViewUINavigationControllerWillShowViewControllerNotification = @"UINavigationControllerWillShowViewControllerNotification";
 
+static void * kCSNavigationBarObservationContext = &kCSNavigationBarObservationContext;
+static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
+
 @interface CSNotificationView ()
 
 #pragma mark - blur effect
@@ -163,6 +166,11 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationControllerWillShowViewControllerNotification:) name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
         }
+
+        //Key-Value Observing
+        {
+            [self.parentNavigationController.navigationBar addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
+        }
         
         //Content views
         {
@@ -193,8 +201,8 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
             self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapInView:)];
             [self addGestureRecognizer:self.tapRecognizer];
         }
-        
-        self.autoresizingMask = UIViewAutoresizingNone;
+
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         
     }
     return self;
@@ -203,6 +211,7 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
+    [self.parentNavigationController.navigationBar removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
 }
 
 - (void)navigationControllerWillShowViewControllerNotification:(NSNotification*)note
@@ -217,6 +226,18 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
             [weakself updateConstraints];
         }];
         
+    }
+}
+
+#pragma mark - Key-Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == kCSNavigationBarObservationContext && [keyPath isEqualToString:kCSNavigationBarBoundsKeyPath]) {
+        self.frame = self.visible ? [self visibleFrame] : [self hiddenFrame];
+        [self setNeedsLayout];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -246,15 +267,13 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
                             metrics:metrics
                                 views:NSDictionaryOfVariableBindings(_symbolView)]];
     
-    CGFloat topInset = CGRectGetHeight(self.frame) - 4;
-    
     [self addConstraint:[NSLayoutConstraint
                 constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
                          relatedBy:NSLayoutRelationEqual
                             toItem:self
                          attribute:NSLayoutAttributeBottom
-                         multiplier:0.0f constant:topInset]];
+                         multiplier:1.0f constant:-3]];
     
     [self addConstraint:[NSLayoutConstraint
         constraintWithItem:_textLabel
@@ -381,7 +400,8 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
-    CGRect displayFrame = CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame),
+    CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
+    CGRect displayFrame = CGRectMake(0, 0, transformedSize.width,
                                      kCSNotificationViewHeight + topLayoutGuideLength);
     
     return displayFrame;
@@ -392,9 +412,10 @@ static NSString* const kCSNotificationViewUINavigationControllerWillShowViewCont
     UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
-    
+
+    CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
     CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,
-                                       CGRectGetWidth(viewController.view.frame),
+                                       transformedSize.width,
                                        kCSNotificationViewHeight + topLayoutGuideLength);
     
     return offscreenFrame;
