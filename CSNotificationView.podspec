@@ -5,8 +5,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/problame/CSNotificationView"
   s.license      = { :type => 'MIT License', :file => "LICENSE.md" }
   s.author       = 'Christian Schwarz'
-  s.source       = { :git => 'https://github.com/problame/CSNotificationView.git', :tag => '0.4' }
-  s.platform     = :ios, '7.0'
+  s.source       = { :git => 'https://github.com/problame/CSNotificationView.git', :tag => s.version.to_s }
+  s.platform     = :ios, '6.0'
   s.requires_arc = true
   s.source_files = 'CSNotificationView/*.*'
   s.resources = [ 'CSNotificationView/CSNotificationView.xcassets/CSNotificationView_checkmarkIcon.imageset/CSNotificationView_checkmarkIcon.png', 'CSNotificationView/CSNotificationView.xcassets/CSNotificationView_checkmarkIcon.imageset/CSNotificationView_checkmarkIcon@2x.png', 'CSNotificationView/CSNotificationView.xcassets/CSNotificationView_exclamationMarkIcon.imageset/CSNotificationView_exclamationMarkIcon.png', 'CSNotificationView/CSNotificationView.xcassets/CSNotificationView_exclamationMarkIcon.imageset/CSNotificationView_exclamationMarkIcon@2x.png']
