@@ -177,15 +177,20 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
             //textLabel
             {
                 _textLabel = [[UILabel alloc] init];
-                
-                UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-                _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                    UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+                    _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+                } else {
+                    _textLabel.font = [UIFont systemFontOfSize:17.0f];
+                }
                 _textLabel.minimumScaleFactor = 0.6;
                 _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 _textLabel.adjustsFontSizeToFitWidth = YES;
                 
                 _textLabel.numberOfLines = 2;
                 _textLabel.textColor = [UIColor whiteColor];
+                _textLabel.backgroundColor = [UIColor clearColor];
                 _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
                 [self addSubview:_textLabel];
             }
@@ -299,7 +304,11 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     _tintColor = tintColor;
     //Use 0.6 alpha value for translucency blur in UIToolbar
-    [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    if ([self.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+        [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    } else {
+        [self.toolbar setTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    }
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
