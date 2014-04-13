@@ -262,7 +262,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     
     [self addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
-                            options:0
+                            options:NSLayoutFormatAlignAllCenterY
                             metrics:metrics
                               views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
     
@@ -279,15 +279,15 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
                             toItem:self
                          attribute:NSLayoutAttributeBottom
                          multiplier:1.0f constant:-3]];
-    
-    [self addConstraint:[NSLayoutConstraint
-        constraintWithItem:_textLabel
-                 attribute:NSLayoutAttributeCenterY
-                 relatedBy:NSLayoutRelationEqual
-                    toItem:_symbolView
-                 attribute:NSLayoutAttributeCenterY
-                multiplier:1.0f constant:0]];
-    
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
+        [self addConstraints:[NSLayoutConstraint
+             constraintsWithVisualFormat:@"V:[_textLabel(notificationViewHeight)]"
+                                 options:0
+                                 metrics:@{@"notificationViewHeight": @(kCSNotificationViewHeight)}
+                                   views:NSDictionaryOfVariableBindings(_textLabel)]];
+    }
+
     [super updateConstraints];
 }
 
