@@ -177,15 +177,20 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
             //textLabel
             {
                 _textLabel = [[UILabel alloc] init];
-                
-                UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-                _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                    UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+                    _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+                } else {
+                    _textLabel.font = [UIFont systemFontOfSize:17.0f];
+                }
                 _textLabel.minimumScaleFactor = 0.6;
                 _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 _textLabel.adjustsFontSizeToFitWidth = YES;
                 
                 _textLabel.numberOfLines = 2;
                 _textLabel.textColor = [UIColor whiteColor];
+                _textLabel.backgroundColor = [UIColor clearColor];
                 _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
                 [self addSubview:_textLabel];
             }
@@ -257,7 +262,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     
     [self addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
-                            options:0
+                            options:NSLayoutFormatAlignAllCenterY
                             metrics:metrics
                               views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
     
@@ -274,15 +279,15 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
                             toItem:self
                          attribute:NSLayoutAttributeBottom
                          multiplier:1.0f constant:-3]];
-    
-    [self addConstraint:[NSLayoutConstraint
-        constraintWithItem:_textLabel
-                 attribute:NSLayoutAttributeCenterY
-                 relatedBy:NSLayoutRelationEqual
-                    toItem:_symbolView
-                 attribute:NSLayoutAttributeCenterY
-                multiplier:1.0f constant:0]];
-    
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
+        [self addConstraints:[NSLayoutConstraint
+             constraintsWithVisualFormat:@"V:[_textLabel(notificationViewHeight)]"
+                                 options:0
+                                 metrics:@{@"notificationViewHeight": @(kCSNotificationViewHeight)}
+                                   views:NSDictionaryOfVariableBindings(_textLabel)]];
+    }
+
     [super updateConstraints];
 }
 
@@ -299,7 +304,11 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     _tintColor = tintColor;
     //Use 0.6 alpha value for translucency blur in UIToolbar
-    [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    if ([self.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+        [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    } else {
+        [self.toolbar setTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    }
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
