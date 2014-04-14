@@ -178,20 +178,23 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
             {
                 _textLabel = [[UILabel alloc] init];
 
-                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-                    UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-                    _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
-                } else {
-                    _textLabel.font = [UIFont systemFontOfSize:17.0f];
-                }
-                _textLabel.minimumScaleFactor = 0.6;
-                _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-                _textLabel.adjustsFontSizeToFitWidth = YES;
-                
-                _textLabel.numberOfLines = 2;
                 _textLabel.textColor = [UIColor whiteColor];
                 _textLabel.backgroundColor = [UIColor clearColor];
                 _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+                _textLabel.numberOfLines = 2;
+                _textLabel.minimumScaleFactor = 0.6;
+                _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                    UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+                    _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+                    _textLabel.adjustsFontSizeToFitWidth = YES; //This only works in iOS 7 with multiline labels. UILabel doc: "In iOS 6 and earlier, this property is effective only when the numberOfLines property is set to 1."
+                } else {
+                    _textLabel.font = [UIFont systemFontOfSize:17.0f];
+                    _textLabel.preferredMaxLayoutWidth = 1; //Settings this to a minimum enforces line breaks.
+                }
+
                 [self addSubview:_textLabel];
             }
             //symbolView
