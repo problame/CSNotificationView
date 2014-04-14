@@ -299,7 +299,11 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     _tintColor = tintColor;
     //Use 0.6 alpha value for translucency blur in UIToolbar
-    [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    if ([self.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+        [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    } else {
+        [self.toolbar setTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    }
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
