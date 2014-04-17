@@ -297,32 +297,35 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
+    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
         //Manually adjustsFontSizeToFitWidth in iOS 6
-        static CGFloat defaultPoint;
-        static CGFloat minimumPoint;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            defaultPoint = self.textLabel.font.pointSize;
-            minimumPoint = ceilf(defaultPoint * self.textLabel.minimumScaleFactor);
-        });
+
+        CGFloat defaultPointSize, minimumPointSize;
+        defaultPointSize = self.textLabel.font.pointSize;
+        minimumPointSize = ceilf(defaultPointSize * self.textLabel.minimumScaleFactor);
 
         UIFont *font = self.textLabel.font;
         CGSize constrainedSize = CGSizeMake(self.textLabel.frame.size.width, CGFLOAT_MAX);
 
-        for (NSInteger point = defaultPoint; point >= minimumPoint; point--) {
-            font = [font fontWithSize:point];
-            CGSize fitSize = [self.textLabel.text sizeWithFont:font constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByTruncatingTail];
+        for (NSInteger pointSize = defaultPointSize; pointSize >= minimumPointSize; pointSize--) {
+            
+            font = [font fontWithSize:pointSize];
+            
+            CGSize fitSize = [self.textLabel.text sizeWithFont:font
+                                             constrainedToSize:constrainedSize
+                                                 lineBreakMode:NSLineBreakByTruncatingTail];
+            
             if (fitSize.height <= CGRectGetHeight(self.textLabel.frame)) {
                 break;
             }
         }
+        
         self.textLabel.font = font;
-
-        //Call super -layoutSubviews again to avoid 'NSInternalInconsistencyException'
-        [super layoutSubviews];
     }
+    
+    [super layoutSubviews];
+    
 }
 
 - (void)setFrame:(CGRect)frame
