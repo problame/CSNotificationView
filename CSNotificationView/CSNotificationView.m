@@ -296,7 +296,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
+    [super layoutSubviews]; //Has to be called again after layout changes.
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
         //Manually adjustsFontSizeToFitWidth in iOS 6
@@ -322,9 +322,9 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
         }
         
         self.textLabel.font = font;
+        
+        [super layoutSubviews];
     }
-    
-    [super layoutSubviews];
     
 }
 
