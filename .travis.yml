@@ -1,0 +1,2 @@
+language: objective-c
+script: xctool -project CSNotificationViewDemo.xcodeproj -scheme CSNotificationViewDemo -sdk iphonesimulator
