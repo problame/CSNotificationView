@@ -5,7 +5,7 @@
 Easy to use, iOS-7-style, semi-translucent notification view with blur that drops into `UIView` and `UITableView`.
 Also supports displaying progress.
 
-**Requires iOS 7.**
+**Semi-translucent UI requires iOS 7.**
 
 
 <div style="float: left; text-align: center">
@@ -24,14 +24,12 @@ Also supports displaying progress.
 
 ```objc
 [CSNotificationView showInViewController:self
-									style:CSNotificationViewStyleError
-								  message:@"A critical error happened."];
-									  
+                                   style:CSNotificationViewStyleError
+                                 message:@"A critical error happened."];
+
 [CSNotificationView showInViewController:self
-									style:CSNotificationViewStyleSuccess
-								  message:@"Great, it works."];
-									  
-									  
+                                   style:CSNotificationViewStyleSuccess
+                                 message:@"Great, it works."];
 ```
 
 ###UIActivityIndicatorView built-in
@@ -42,8 +40,10 @@ note.showingActivity = YES;
 
 [note setVisible:YES animated:YES completion:nil];
 (...)
-[note dismissWithStyle:CSNotificationViewStyleSuccess message:@"Success!"
-	      duration:kCSNotificationViewDefaultShowDuration animated:YES];
+[note dismissWithStyle:CSNotificationViewStyleSuccess
+               message:@"Success!"
+              duration:kCSNotificationViewDefaultShowDuration
+              animated:YES];
 ```
 
 ###Tap handling
@@ -51,13 +51,14 @@ note.showingActivity = YES;
 Handle tap events on the notification using a block callback
 
 ```objc
-    __block typeof(self) weakSelf = self;
-    self.loadingNotificationView.tapHandler = ^{
-        [weakSelf cancelOperationXYZ];
-        [weakSelf.loadingNotificationView dismissWithStyle:CSNotificationViewStyleError
-                                  	   message:@"Cancelled"
-                                  	  duration:kCSNotificationViewDefaultShowDuration animated:YES];
-    };
+__weak typeof(self) weakSelf = self;
+self.loadingNotificationView.tapHandler = ^{
+    [weakSelf cancelOperationXYZ];
+    [weakSelf.loadingNotificationView dismissWithStyle:CSNotificationViewStyleError
+                                               message:@"Cancelled"
+                                              duration:kCSNotificationViewDefaultShowDuration
+                                              animated:YES];
+};
 ```
 
 ###Customization
@@ -72,12 +73,11 @@ note.image = [UIImage imageNamed:@"mustache"];
 
 ```objc
 [CSNotificationView showInViewController:self
-        tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
-            image:nil
-          message:@"No icon and a message that needs two rows and extra \
-                    presentation time to be displayed properly."
-         duration:5.8f];
-
+                               tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
+                                   image:nil
+                                 message:@"No icon and a message that needs two rows and extra "
+                                         @"presentation time to be displayed properly."
+                                duration:5.8f];
 ```
 
 
