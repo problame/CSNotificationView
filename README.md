@@ -1,5 +1,7 @@
 #CSNotificationView
 
+[![Build Status](https://travis-ci.org/problame/CSNotificationView.svg?branch=travis-ci)](https://travis-ci.org/problame/CSNotificationView)
+
 Easy to use, iOS-7-style, semi-translucent notification view with blur that drops into `UIView` and `UITableView`.
 Also supports displaying progress.
 
