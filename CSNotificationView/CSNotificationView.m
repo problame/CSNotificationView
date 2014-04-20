@@ -444,6 +444,10 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
     
+    if (!viewController.isViewLoaded) {
+        return CGRectZero;
+    }
+    
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
     CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
@@ -456,6 +460,10 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 - (CGRect)hiddenFrame
 {
     UIViewController* viewController = self.parentNavigationController ?: self.parentViewController;
+    
+    if (!viewController.isViewLoaded) {
+        return CGRectZero;
+    }
     
     CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
 
