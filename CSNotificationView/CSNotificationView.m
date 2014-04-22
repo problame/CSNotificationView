@@ -398,6 +398,11 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     }
 }
 
+- (void)setMessage:(NSString*)message
+{
+  self.textLabel.text = message;
+}
+
 - (void)animationFramesForVisible:(BOOL)visible startFrame:(CGRect*)startFrame endFrame:(CGRect*)endFrame
 {
     if (startFrame) *startFrame = visible ? [self hiddenFrame]:[self visibleFrame];
