@@ -54,6 +54,7 @@ typedef void(^CSVoidBlock)();
 
 #pragma mark - presentation
 
+- (void)setMessage:(NSString*)message;
 - (void)setVisible:(BOOL)showing animated:(BOOL)animated completion:(void (^)())completion;
 - (void)dismissWithStyle:(CSNotificationViewStyle)style message:(NSString*)message duration:(NSTimeInterval)duration animated:(BOOL)animated;
 @property (readonly, nonatomic, getter = isShowing) BOOL visible;
