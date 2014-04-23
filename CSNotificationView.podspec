@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'CSNotificationView'
-  s.version      = '0.4.1'
+  s.version      = '0.4.2'
   s.summary      = "iOS-7-style, semi-translucent notification view with blur."
   s.homepage     = "https://github.com/problame/CSNotificationView"
   s.license      = { :type => 'MIT License', :file => "LICENSE.md" }
