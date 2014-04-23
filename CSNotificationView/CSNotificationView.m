@@ -186,7 +186,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
                 _textLabel.minimumScaleFactor = 0.6;
                 _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 
-                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
                     UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
                     _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
                     _textLabel.adjustsFontSizeToFitWidth = YES; //This only works in iOS 7 with multiline labels. UILabel doc: "In iOS 6 and earlier, this property is effective only when the numberOfLines property is set to 1."
@@ -298,7 +298,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     [super layoutSubviews]; //Has to be called again after layout changes.
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         //Manually adjustsFontSizeToFitWidth in iOS 6
 
         CGFloat defaultPointSize, minimumPointSize;
@@ -312,9 +312,14 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
             
             font = [font fontWithSize:pointSize];
             
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            
             CGSize fitSize = [self.textLabel.text sizeWithFont:font
                                              constrainedToSize:constrainedSize
                                                  lineBreakMode:NSLineBreakByTruncatingTail];
+            
+#pragma clang diagnostic pop
             
             if (fitSize.height <= CGRectGetHeight(self.textLabel.frame)) {
                 break;
