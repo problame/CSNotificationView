@@ -422,7 +422,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
         weakself.tintColor = [CSNotificationView blurTintColorForStyle:style];
         
     } completion:^(BOOL finished) {
-        double delayInSeconds = 2.0;
+        double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [weakself setVisible:NO animated:animated completion:nil];
