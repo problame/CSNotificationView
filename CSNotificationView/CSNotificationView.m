@@ -17,10 +17,6 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 
 @interface CSNotificationView ()
 
-#pragma mark - blur effect
-@property (nonatomic, strong) UIToolbar *toolbar;
-@property (nonatomic, strong) CALayer *blurLayer;
-
 #pragma mark - presentation
 @property (nonatomic, weak) UIViewController* parentViewController;
 @property (nonatomic, weak) UINavigationController* parentNavigationController;
@@ -126,24 +122,9 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 
 - (instancetype)initWithParentViewController:(UIViewController*)viewController
 {
-    self = [super initWithFrame:CGRectZero];
+    self = [super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     if (self) {
-        
-        //Blur | thanks to https://github.com/JagCesar/iOS-blur for providing this under the WTFPL-license!
         {
-            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
-            [self setBlurLayer:[[self toolbar] layer]];
-            
-            UIView *blurView = [UIView new];
-            [blurView setUserInteractionEnabled:NO];
-            [blurView.layer addSublayer:[self blurLayer]];
-            [blurView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            blurView.clipsToBounds = NO;
-            [self insertSubview:blurView atIndex:0];
-            
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[blurView]-(-1)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
-            
             [self setBackgroundColor:[UIColor clearColor]];
         }
         
@@ -336,8 +317,6 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    //Update blur layer frame by updating the bounds frame
-    self.toolbar.frame = self.bounds;
 }
 
 #pragma mark - tint color
@@ -345,12 +324,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 - (void)setTintColor:(UIColor *)tintColor
 {
     _tintColor = tintColor;
-    //Use 0.6 alpha value for translucency blur in UIToolbar
-    if ([self.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
-        [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
-    } else {
-        [self.toolbar setTintColor:[tintColor colorWithAlphaComponent:0.6]];
-    }
+    self.backgroundColor = tintColor;
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
@@ -373,6 +347,8 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
         
         CGRect startFrame, endFrame;
         [self animationFramesForVisible:visible startFrame:&startFrame endFrame:&endFrame];
+        
+        NSLog(@"Animating with startFrame '(%f,%f,%f,%f)' and endFrame '(%f,%f,%f,%f)'", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height, endFrame.origin.x, endFrame.origin.y, endFrame.size.width, endFrame.size.height);
         
         if (!self.superview) {
             self.frame = startFrame;
