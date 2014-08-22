@@ -314,11 +314,6 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     
 }
 
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-}
-
 #pragma mark - tint color
 
 - (void)setTintColor:(UIColor *)tintColor
@@ -347,8 +342,6 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
         
         CGRect startFrame, endFrame;
         [self animationFramesForVisible:visible startFrame:&startFrame endFrame:&endFrame];
-        
-        NSLog(@"Animating with startFrame '(%f,%f,%f,%f)' and endFrame '(%f,%f,%f,%f)'", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height, endFrame.origin.x, endFrame.origin.y, endFrame.size.width, endFrame.size.height);
         
         if (!self.superview) {
             self.frame = startFrame;
