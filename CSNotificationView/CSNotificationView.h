@@ -19,7 +19,7 @@ typedef enum {
 
 typedef void(^CSVoidBlock)();
 
-@interface CSNotificationView : UIView
+@interface CSNotificationView : UIVisualEffectView
 
 #pragma mark + quick presentation
 
