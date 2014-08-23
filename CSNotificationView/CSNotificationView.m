@@ -10,6 +10,7 @@
 #import "CSNotificationView_Private.h"
 
 #import "CSLayerStealingBlurView.h"
+#import "CSNativeBlurView.h"
 
 @implementation CSNotificationView
 
@@ -111,6 +112,7 @@
             
             if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
                 //Use native effects
+                self.blurView = [[CSNativeBlurView alloc] initWithFrame:CGRectZero];
             } else {
                 //Use layer stealing
                 self.blurView = [[CSLayerStealingBlurView alloc] initWithFrame:CGRectZero];
