@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */; };
+		8E42A0F619A88D4F0052E318 /* CSLayerStealingBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */; };
 		8E4E1AB317D35355005EB12B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB217D35355005EB12B /* Foundation.framework */; };
 		8E4E1AB517D35355005EB12B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB417D35355005EB12B /* CoreGraphics.framework */; };
 		8E4E1AB717D35355005EB12B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1AB617D35355005EB12B /* UIKit.framework */; };
@@ -24,6 +25,9 @@
 /* Begin PBXFileReference section */
 		8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDetailsViewController.h; sourceTree = "<group>"; };
 		8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDetailsViewController.m; sourceTree = "<group>"; };
+		8E42A0F419A88D4F0052E318 /* CSLayerStealingBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLayerStealingBlurView.h; sourceTree = "<group>"; };
+		8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSLayerStealingBlurView.m; sourceTree = "<group>"; };
+		8E42A0F719A890170052E318 /* CSNotificationView_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSNotificationView_Private.h; sourceTree = "<group>"; };
 		8E4E1AAF17D35355005EB12B /* CSNotificationViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSNotificationViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4E1AB217D35355005EB12B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E4E1AB417D35355005EB12B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,7 +122,10 @@
 			isa = PBXGroup;
 			children = (
 				8E757B4C17D38CA20088845B /* CSNotificationView.h */,
+				8E42A0F719A890170052E318 /* CSNotificationView_Private.h */,
 				8E757B4D17D38CA20088845B /* CSNotificationView.m */,
+				8E42A0F419A88D4F0052E318 /* CSLayerStealingBlurView.h */,
+				8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */,
 				8E757B4E17D38CBF0088845B /* CSNotificationView.xcassets */,
 			);
 			path = CSNotificationView;
@@ -194,6 +201,7 @@
 				8E4E1AC317D35355005EB12B /* CSAppDelegate.m in Sources */,
 				8E4E1ABF17D35355005EB12B /* main.m in Sources */,
 				8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */,
+				8E42A0F619A88D4F0052E318 /* CSLayerStealingBlurView.m in Sources */,
 				8E757B5017D38D360088845B /* CSNotificationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

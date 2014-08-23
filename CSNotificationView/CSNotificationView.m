@@ -7,34 +7,9 @@
 //
 
 #import "CSNotificationView.h"
+#import "CSNotificationView_Private.h"
 
-static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
-
-static NSString* const kCSNotificationViewUINavigationControllerWillShowViewControllerNotification = @"UINavigationControllerWillShowViewControllerNotification";
-
-static void * kCSNavigationBarObservationContext = &kCSNavigationBarObservationContext;
-static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
-
-@interface CSNotificationView ()
-
-#pragma mark - blur effect
-@property (nonatomic, strong) UIToolbar *toolbar;
-@property (nonatomic, strong) CALayer *blurLayer;
-
-#pragma mark - presentation
-@property (nonatomic, weak) UIViewController* parentViewController;
-@property (nonatomic, weak) UINavigationController* parentNavigationController;
-@property (nonatomic, getter = isVisible) BOOL visible;
-
-#pragma mark - content views
-@property (nonatomic, strong, readonly) UIView* symbolView; // is updated by -(void)updateSymbolView
-@property (nonatomic, strong) UILabel* textLabel;
-@property (nonatomic, strong) UIColor* contentColor;
-
-#pragma mark - interaction
-@property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
-
-@end
+#import "CSLayerStealingBlurView.h"
 
 @implementation CSNotificationView
 
@@ -129,22 +104,23 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     self = [super initWithFrame:CGRectZero];
     if (self) {
         
-        //Blur | thanks to https://github.com/JagCesar/iOS-blur for providing this under the WTFPL-license!
+        self.backgroundColor = [UIColor clearColor];
+        
+        //Blur view
         {
-            [self setToolbar:[[UIToolbar alloc] initWithFrame:[self bounds]]];
-            [self setBlurLayer:[[self toolbar] layer]];
             
-            UIView *blurView = [UIView new];
-            [blurView setUserInteractionEnabled:NO];
-            [blurView.layer addSublayer:[self blurLayer]];
-            [blurView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            blurView.clipsToBounds = NO;
-            [self insertSubview:blurView atIndex:0];
+            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+                //Use native effects
+            } else {
+                //Use layer stealing
+                self.blurView = [[CSLayerStealingBlurView alloc] initWithFrame:CGRectZero];
+            }
             
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[blurView]-(-1)-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(blurView)]];
+            self.blurView.userInteractionEnabled = NO;
+            self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.blurView.clipsToBounds = NO;
+            [self insertSubview:self.blurView atIndex:0];
             
-            [self setBackgroundColor:[UIColor clearColor]];
         }
         
         //Parent view
@@ -255,6 +231,13 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
 {
     [self removeConstraints:self.constraints];
     
+    NSDictionary* bindings = @{@"blurView":self.blurView};
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|"
+                                                                 options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-1)-[blurView]-(-1)-|"
+                                                                 options:0 metrics:nil views:bindings]];
+
+    
     CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
                                 kCSNotificationViewSymbolViewSidelength : 0.0f;
     CGFloat symbolViewHeight = kCSNotificationViewSymbolViewSidelength;
@@ -333,24 +316,12 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
     
 }
 
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    //Update blur layer frame by updating the bounds frame
-    self.toolbar.frame = self.bounds;
-}
-
 #pragma mark - tint color
 
 - (void)setTintColor:(UIColor *)tintColor
 {
     _tintColor = tintColor;
-    //Use 0.6 alpha value for translucency blur in UIToolbar
-    if ([self.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
-        [self.toolbar setBarTintColor:[tintColor colorWithAlphaComponent:0.6]];
-    } else {
-        [self.toolbar setTintColor:[tintColor colorWithAlphaComponent:0.6]];
-    }
+    [self.blurView setBlurTintColor:[tintColor colorWithAlphaComponent:0.6]];
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 
@@ -389,6 +360,7 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
         [UIView animateWithDuration:animationDuration animations:^{
             [weakself setFrame:endFrame];
         } completion:^(BOOL finished) {
+            
             if (!visible) {
                 [weakself removeFromSuperview];
             }
