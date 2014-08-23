@@ -162,14 +162,9 @@
                 _textLabel.minimumScaleFactor = 0.6;
                 _textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 
-                if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-                    UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
-                    _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
-                    _textLabel.adjustsFontSizeToFitWidth = YES; //This only works in iOS 7 with multiline labels. UILabel doc: "In iOS 6 and earlier, this property is effective only when the numberOfLines property is set to 1."
-                } else {
-                    _textLabel.font = [UIFont systemFontOfSize:17.0f];
-                    _textLabel.preferredMaxLayoutWidth = 1; //Settings this to a minimum enforces line breaks.
-                }
+                UIFontDescriptor* textLabelFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+                _textLabel.font = [UIFont fontWithDescriptor:textLabelFontDescriptor size:17.0f];
+                _textLabel.adjustsFontSizeToFitWidth = YES;
                 
                 [self addSubview:_textLabel];
             }
@@ -275,45 +270,6 @@
                 multiplier:1.0f constant:0]];
     
     [super updateConstraints];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews]; //Has to be called again after layout changes.
-    
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        //Manually adjustsFontSizeToFitWidth in iOS 6
-
-        CGFloat defaultPointSize, minimumPointSize;
-        defaultPointSize = self.textLabel.font.pointSize;
-        minimumPointSize = ceilf(defaultPointSize * self.textLabel.minimumScaleFactor);
-
-        UIFont *font = self.textLabel.font;
-        CGSize constrainedSize = CGSizeMake(self.textLabel.frame.size.width, CGFLOAT_MAX);
-
-        for (NSInteger pointSize = defaultPointSize; pointSize >= minimumPointSize; pointSize--) {
-            
-            font = [font fontWithSize:pointSize];
-            
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            
-            CGSize fitSize = [self.textLabel.text sizeWithFont:font
-                                             constrainedToSize:constrainedSize
-                                                 lineBreakMode:NSLineBreakByTruncatingTail];
-            
-#pragma clang diagnostic pop
-            
-            if (fitSize.height <= CGRectGetHeight(self.textLabel.frame)) {
-                break;
-            }
-        }
-        
-        self.textLabel.font = font;
-        
-        [super layoutSubviews];
-    }
-    
 }
 
 #pragma mark - tint color
