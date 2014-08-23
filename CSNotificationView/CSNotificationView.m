@@ -277,7 +277,7 @@
 - (void)setTintColor:(UIColor *)tintColor
 {
     _tintColor = tintColor;
-    [self.blurView setBlurTintColor:[tintColor colorWithAlphaComponent:0.6]];
+    [self.blurView setBlurTintColor:tintColor];
     self.contentColor = [self legibleTextColorForBlurTintColor:tintColor];
 }
 

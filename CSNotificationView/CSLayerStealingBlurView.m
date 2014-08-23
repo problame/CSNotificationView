@@ -58,7 +58,7 @@
 - (void)setBlurTintColor:(UIColor *)tintColor
 {
     NSParameterAssert(tintColor);
-    self.toolbar.barTintColor = tintColor;
+    self.toolbar.barTintColor = [tintColor colorWithAlphaComponent:0.6];
 }
 
 
