@@ -517,12 +517,13 @@
 + (UIImage*)imageForStyle:(CSNotificationViewStyle)style
 {
     UIImage* matchedImage = nil;
+    NSBundle *assetsBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"assets" withExtension:@"bundle"]];
     switch (style) {
         case CSNotificationViewStyleSuccess:
-            matchedImage = [UIImage imageNamed:@"CSNotificationView_checkmarkIcon"];
+            matchedImage = [UIImage imageNamed:@"checkmark" inBundle:assetsBundle compatibleWithTraitCollection:nil];
             break;
         case CSNotificationViewStyleError:
-            matchedImage = [UIImage imageNamed:@"CSNotificationView_exclamationMarkIcon"];
+            matchedImage = [UIImage imageNamed:@"exclamationMark" inBundle:assetsBundle compatibleWithTraitCollection:nil];
             break;
         default:
             break;

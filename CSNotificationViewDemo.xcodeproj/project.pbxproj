@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E2733F619C5F3FD00FBAC88 /* assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733F519C5F3FD00FBAC88 /* assets.bundle */; };
 		8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */; };
 		8E42A0F619A88D4F0052E318 /* CSLayerStealingBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */; };
 		8E42A0FA19A898690052E318 /* CSNativeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42A0F919A898690052E318 /* CSNativeBlurView.m */; };
@@ -20,10 +21,10 @@
 		8E4E1AEF17D35DBD005EB12B /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E1AE117D35364005EB12B /* Storyboard.storyboard */; };
 		8E757B5017D38D360088845B /* CSNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E757B4D17D38CA20088845B /* CSNotificationView.m */; };
 		8E757B5117D38F6B0088845B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E757B4F17D38CE80088845B /* Images.xcassets */; };
-		8E757B5217D38F6F0088845B /* CSNotificationView.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E757B4E17D38CBF0088845B /* CSNotificationView.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E2733F519C5F3FD00FBAC88 /* assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = assets.bundle; sourceTree = "<group>"; };
 		8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDetailsViewController.h; sourceTree = "<group>"; };
 		8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDetailsViewController.m; sourceTree = "<group>"; };
 		8E42A0F419A88D4F0052E318 /* CSLayerStealingBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLayerStealingBlurView.h; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		8E4E1AE617D353F3005EB12B /* CSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRootViewController.m; sourceTree = "<group>"; };
 		8E757B4C17D38CA20088845B /* CSNotificationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSNotificationView.h; sourceTree = "<group>"; };
 		8E757B4D17D38CA20088845B /* CSNotificationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSNotificationView.m; sourceTree = "<group>"; };
-		8E757B4E17D38CBF0088845B /* CSNotificationView.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CSNotificationView.xcassets; sourceTree = "<group>"; };
 		8E757B4F17D38CE80088845B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +124,7 @@
 		8E757B4B17D38CA20088845B /* CSNotificationView */ = {
 			isa = PBXGroup;
 			children = (
+				8E2733F519C5F3FD00FBAC88 /* assets.bundle */,
 				8E757B4C17D38CA20088845B /* CSNotificationView.h */,
 				8E42A0F719A890170052E318 /* CSNotificationView_Private.h */,
 				8E757B4D17D38CA20088845B /* CSNotificationView.m */,
@@ -131,7 +132,6 @@
 				8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */,
 				8E42A0F819A898690052E318 /* CSNativeBlurView.h */,
 				8E42A0F919A898690052E318 /* CSNativeBlurView.m */,
-				8E757B4E17D38CBF0088845B /* CSNotificationView.xcassets */,
 			);
 			path = CSNotificationView;
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E757B5217D38F6F0088845B /* CSNotificationView.xcassets in Resources */,
+				8E2733F619C5F3FD00FBAC88 /* assets.bundle in Resources */,
 				8E757B5117D38F6B0088845B /* Images.xcassets in Resources */,
 				8E4E1ABD17D35355005EB12B /* InfoPlist.strings in Resources */,
 				8E4E1AEF17D35DBD005EB12B /* Storyboard.storyboard in Resources */,
