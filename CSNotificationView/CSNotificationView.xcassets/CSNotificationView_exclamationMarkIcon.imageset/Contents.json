@@ -9,6 +9,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "CSNotificationView_exclamationMarkIcon@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "CSNotificationView_exclamationMarkIcon@3x.png"
     }
   ],
   "info" : {
