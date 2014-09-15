@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E2733F619C5F3FD00FBAC88 /* assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733F519C5F3FD00FBAC88 /* assets.bundle */; };
+		8E2733FE19C5FD1100FBAC88 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733F819C5FD1100FBAC88 /* checkmark.png */; };
+		8E2733FF19C5FD1100FBAC88 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733F919C5FD1100FBAC88 /* checkmark@2x.png */; };
+		8E27340019C5FD1100FBAC88 /* checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733FA19C5FD1100FBAC88 /* checkmark@3x.png */; };
+		8E27340119C5FD1100FBAC88 /* exclamationMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733FB19C5FD1100FBAC88 /* exclamationMark.png */; };
+		8E27340219C5FD1100FBAC88 /* exclamationMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733FC19C5FD1100FBAC88 /* exclamationMark@2x.png */; };
+		8E27340319C5FD1100FBAC88 /* exclamationMark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E2733FD19C5FD1100FBAC88 /* exclamationMark@3x.png */; };
 		8E310C7918BBA9AE0081DEC7 /* CSDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */; };
 		8E42A0F619A88D4F0052E318 /* CSLayerStealingBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42A0F519A88D4F0052E318 /* CSLayerStealingBlurView.m */; };
 		8E42A0FA19A898690052E318 /* CSNativeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42A0F919A898690052E318 /* CSNativeBlurView.m */; };
@@ -24,7 +29,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E2733F519C5F3FD00FBAC88 /* assets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = assets.bundle; sourceTree = "<group>"; };
+		8E2733F819C5FD1100FBAC88 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		8E2733F919C5FD1100FBAC88 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
+		8E2733FA19C5FD1100FBAC88 /* checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@3x.png"; sourceTree = "<group>"; };
+		8E2733FB19C5FD1100FBAC88 /* exclamationMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exclamationMark.png; sourceTree = "<group>"; };
+		8E2733FC19C5FD1100FBAC88 /* exclamationMark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exclamationMark@2x.png"; sourceTree = "<group>"; };
+		8E2733FD19C5FD1100FBAC88 /* exclamationMark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exclamationMark@3x.png"; sourceTree = "<group>"; };
 		8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDetailsViewController.h; sourceTree = "<group>"; };
 		8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDetailsViewController.m; sourceTree = "<group>"; };
 		8E42A0F419A88D4F0052E318 /* CSLayerStealingBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLayerStealingBlurView.h; sourceTree = "<group>"; };
@@ -65,6 +75,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E2733F719C5FD1100FBAC88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8E2733F819C5FD1100FBAC88 /* checkmark.png */,
+				8E2733F919C5FD1100FBAC88 /* checkmark@2x.png */,
+				8E2733FA19C5FD1100FBAC88 /* checkmark@3x.png */,
+				8E2733FB19C5FD1100FBAC88 /* exclamationMark.png */,
+				8E2733FC19C5FD1100FBAC88 /* exclamationMark@2x.png */,
+				8E2733FD19C5FD1100FBAC88 /* exclamationMark@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8E4E1AA617D35355005EB12B = {
 			isa = PBXGroup;
 			children = (
@@ -124,7 +147,7 @@
 		8E757B4B17D38CA20088845B /* CSNotificationView */ = {
 			isa = PBXGroup;
 			children = (
-				8E2733F519C5F3FD00FBAC88 /* assets.bundle */,
+				8E2733F719C5FD1100FBAC88 /* Resources */,
 				8E757B4C17D38CA20088845B /* CSNotificationView.h */,
 				8E42A0F719A890170052E318 /* CSNotificationView_Private.h */,
 				8E757B4D17D38CA20088845B /* CSNotificationView.m */,
@@ -188,10 +211,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E2733F619C5F3FD00FBAC88 /* assets.bundle in Resources */,
 				8E757B5117D38F6B0088845B /* Images.xcassets in Resources */,
+				8E27340019C5FD1100FBAC88 /* checkmark@3x.png in Resources */,
+				8E27340119C5FD1100FBAC88 /* exclamationMark.png in Resources */,
+				8E27340219C5FD1100FBAC88 /* exclamationMark@2x.png in Resources */,
+				8E2733FE19C5FD1100FBAC88 /* checkmark.png in Resources */,
 				8E4E1ABD17D35355005EB12B /* InfoPlist.strings in Resources */,
+				8E27340319C5FD1100FBAC88 /* exclamationMark@3x.png in Resources */,
 				8E4E1AEF17D35DBD005EB12B /* Storyboard.storyboard in Resources */,
+				8E2733FF19C5FD1100FBAC88 /* checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
