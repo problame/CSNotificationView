@@ -1,9 +1,9 @@
 #CSNotificationView
 
-Easy to use, iOS-7-style, semi-translucent notification view with blur that drops into `UIView` and `UITableView`.
+Easy to use, semi-translucent and blurring notification view that drops into `UIView`, `UITableView`, `UICollectionView`.
 Also supports displaying progress.
 
-**Requires iOS 7.**
+**Supports iOS 7 and iOS 8. Requires Xcode 6.**
 
 
 <div style="float: left; text-align: center">
