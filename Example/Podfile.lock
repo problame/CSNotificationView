@@ -1,0 +1,10 @@
+PODS:
+  - CSNotificationView (0.5)
+
+DEPENDENCIES:
+  - CSNotificationView
+
+SPEC CHECKSUMS:
+  CSNotificationView: f5ec349465afbcddb8b085df95b14e3435be2d23
+
+COCOAPODS: 0.33.1

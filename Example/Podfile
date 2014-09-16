@@ -1,0 +1,6 @@
+platform :ios, "7.0"
+
+target "CSNotificationViewDemo" do
+  pod "CSNotificationView"
+end
+

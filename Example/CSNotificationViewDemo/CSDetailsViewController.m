@@ -7,7 +7,7 @@
 //
 
 #import "CSDetailsViewController.h"
-#import "CSNotificationView.h"
+#import <CSNotificationView/CSNotificationView.h>
 
 @interface CSDetailsViewController ()
 
