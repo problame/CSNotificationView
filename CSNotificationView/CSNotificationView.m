@@ -521,10 +521,10 @@
     NSBundle *assetsBundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"CSNotificationView" withExtension:@"bundle"]];
     switch (style) {
         case CSNotificationViewStyleSuccess:
-            matchedImage = [UIImage imageNamed:@"checkmark" inBundle:assetsBundle compatibleWithTraitCollection:nil];
+            matchedImage = [UIImage imageWithContentsOfFile:[assetsBundle pathForResource:@"checkmark" ofType:@"png"]];
             break;
         case CSNotificationViewStyleError:
-            matchedImage = [UIImage imageNamed:@"exclamationMark" inBundle:assetsBundle compatibleWithTraitCollection:nil];
+            matchedImage = [UIImage imageWithContentsOfFile:[assetsBundle pathForResource:@"exclamationMark" ofType:@"png"]];
             break;
         default:
             break;
