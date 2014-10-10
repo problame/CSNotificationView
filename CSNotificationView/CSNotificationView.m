@@ -143,11 +143,12 @@
         //Notifications
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationControllerWillShowViewControllerNotification:) name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationControllerDidShowViewControllerNotification:) name:kCSNotificationViewUINavigationControllerDidShowViewControllerNotification object:nil];
         }
 
         //Key-Value Observing
         {
-            [self.parentNavigationController.navigationBar addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
+            [self addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
         }
         
         //Content views
@@ -191,8 +192,8 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCSNotificationViewUINavigationControllerWillShowViewControllerNotification object:nil];
-    [self.parentNavigationController.navigationBar removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
 }
 
 - (void)navigationControllerWillShowViewControllerNotification:(NSNotification*)note
@@ -205,6 +206,22 @@
             [weakself animationFramesForVisible:weakself.visible startFrame:nil endFrame:&endFrame];
             [weakself setFrame:endFrame];
             [weakself updateConstraints];
+        }];
+        
+    }
+}
+
+- (void)navigationControllerDidShowViewControllerNotification:(NSNotification*)note
+{
+    if (self.visible && [self.parentNavigationController.navigationController isEqual:note.object]) {
+        
+        //We're about to be pushed away! This might happen in a UISplitViewController with both master/detailViewControllers being UINavgiationControllers
+        //Move to new parent
+        
+        __block typeof(self) weakself = self;
+        [self setVisible:NO animated:NO completion:^{
+            weakself.parentNavigationController = note.object;
+            [weakself setVisible:YES animated:NO completion:nil];
         }];
         
     }

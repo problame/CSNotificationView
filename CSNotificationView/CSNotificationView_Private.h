@@ -11,9 +11,10 @@
 static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 
 static NSString* const kCSNotificationViewUINavigationControllerWillShowViewControllerNotification = @"UINavigationControllerWillShowViewControllerNotification";
+static NSString* const kCSNotificationViewUINavigationControllerDidShowViewControllerNotification = @"UINavigationControllerDidShowViewControllerNotification";
 
 static void * kCSNavigationBarObservationContext = &kCSNavigationBarObservationContext;
-static NSString * kCSNavigationBarBoundsKeyPath = @"bounds";
+static NSString * kCSNavigationBarBoundsKeyPath = @"parentNavigationController.navigationBar.bounds";
 
 @protocol CSNotificationViewBlurViewProtocol <NSObject>
 
