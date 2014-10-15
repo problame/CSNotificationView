@@ -8,20 +8,22 @@ PODS:
   - ReactiveCocoa/no-arc (2.3.1)
   - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
-  - XCTAsyncTestCase (0.1.0)
+  - XCTAsyncTestCase (0.1.1)
 
 DEPENDENCIES:
   - CSNotificationView (from `../CSNotificationView.podspec`)
   - ReactiveCocoa (~> 2.3.1)
-  - XCTAsyncTestCase (~> 0.1.0)
+  - XCTAsyncTestCase (from `https://github.com/iheartradio/xctest-additions.git`)
 
 EXTERNAL SOURCES:
   CSNotificationView:
     :path: ../CSNotificationView.podspec
+  XCTAsyncTestCase:
+    :git: https://github.com/iheartradio/xctest-additions.git
 
 SPEC CHECKSUMS:
   CSNotificationView: e97c77c1703da0cf8e5cc4b85eea1b3a7842db86
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
-  XCTAsyncTestCase: 05c35ff59afc379911544e7452d48af186c9c5a2
+  XCTAsyncTestCase: 33261474dd19caad96f4df400c1cbbe95f153917
 
 COCOAPODS: 0.34.1

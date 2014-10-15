@@ -6,6 +6,6 @@ end
 
 target "CSNotificationViewTests" do
   pod "CSNotificationView", :path => "../CSNotificationView.podspec"
-  pod "XCTAsyncTestCase", "~> 0.1.0"
+  pod "XCTAsyncTestCase", :git => "https://github.com/iheartradio/xctest-additions.git"
   pod "ReactiveCocoa", "~> 2.3.1"
 end
