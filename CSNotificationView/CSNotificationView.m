@@ -148,7 +148,7 @@
 
         //Key-Value Observing
         {
-            [self addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
+            [self registerNavigationBarObserver];
         }
         
         //Content views
@@ -192,8 +192,8 @@
 
 - (void)dealloc
 {
+    [self removeNavigationBarObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
 }
 
 - (void)navigationControllerWillShowViewControllerNotification:(NSNotification*)note
@@ -228,6 +228,16 @@
 }
 
 #pragma mark - Key-Value Observing
+
+- (void)registerNavigationBarObserver
+{
+    [self addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
+}
+
+- (void)removeNavigationBarObserver
+{
+    [self removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

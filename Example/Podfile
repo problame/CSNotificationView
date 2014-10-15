@@ -1,6 +1,12 @@
 platform :ios, "7.0"
 
 target "CSNotificationViewDemo" do
-    pod "CSNotificationView", :path => "../"
+  pod "CSNotificationView", :path => "../CSNotificationView.podspec"
 end
 
+target "CSNotificationViewTests" do
+  pod "CSNotificationView", :path => "../CSNotificationView.podspec"
+  pod "ReactiveCocoa"
+  pod "XCTAsyncTestCase"
+  pod "OCMock"
+end

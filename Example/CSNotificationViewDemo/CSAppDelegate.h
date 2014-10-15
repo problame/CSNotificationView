@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CSDetailsViewController;
 
 @interface CSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic) CSDetailsViewController *detailsViewController;
 
 @end

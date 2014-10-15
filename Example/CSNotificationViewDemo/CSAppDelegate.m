@@ -12,6 +12,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    self.detailsViewController = (CSDetailsViewController *)self.window.rootViewController;
     return YES;
 }
 

@@ -47,6 +47,34 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>0ADCB4F371D553FD15F911F4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-CSNotificationViewTests.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-CSNotificationViewTests/Pods-CSNotificationViewTests.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>106435B4C4E715E8C3F7527D</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-CSNotificationViewTests.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>19CFEDDF4B6643CB830EB555</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -71,6 +99,30 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
+		<key>1AD4F038A79B2EDD74FC20DE</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-CSNotificationViewTests/Pods-CSNotificationViewTests-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
 		<key>1FC9D40D7CD44130ADDF78D4</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -83,6 +135,58 @@ fi
 			<string>libPods-CSNotificationViewDemo.a</string>
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>25430BA67756D257DB7B2676</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-CSNotificationViewTests.debug.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-CSNotificationViewTests/Pods-CSNotificationViewTests.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2BDD48A7B98DB4262AA8F86B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>82C859273B4985E3593B007A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>106435B4C4E715E8C3F7527D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>880664D9E4CB6491EE4E5E3C</key>
 		<dict>
@@ -137,6 +241,7 @@ fi
 			<key>children</key>
 			<array>
 				<string>8E4E1AB817D35355005EB12B</string>
+				<string>8E8B681719EEEA4A006A6032</string>
 				<string>8E4E1AB117D35355005EB12B</string>
 				<string>8E4E1AB017D35355005EB12B</string>
 				<string>97AFF85B5E6D9E5841F97E5B</string>
@@ -156,6 +261,16 @@ fi
 				<string>0500</string>
 				<key>ORGANIZATIONNAME</key>
 				<string>Christian Schwarz</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>8E8B681519EEEA4A006A6032</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>6.0.1</string>
+						<key>TestTargetID</key>
+						<string>8E4E1AAE17D35355005EB12B</string>
+					</dict>
+				</dict>
 			</dict>
 			<key>buildConfigurationList</key>
 			<string>8E4E1AAA17D35355005EB12B</string>
@@ -184,6 +299,7 @@ fi
 			<key>targets</key>
 			<array>
 				<string>8E4E1AAE17D35355005EB12B</string>
+				<string>8E8B681519EEEA4A006A6032</string>
 			</array>
 		</dict>
 		<key>8E4E1AAA17D35355005EB12B</key>
@@ -292,6 +408,7 @@ fi
 			<key>children</key>
 			<array>
 				<string>8E4E1AAF17D35355005EB12B</string>
+				<string>8E8B681619EEEA4A006A6032</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -309,6 +426,8 @@ fi
 				<string>8E4E1AB617D35355005EB12B</string>
 				<string>8E4E1ACB17D35355005EB12B</string>
 				<string>1FC9D40D7CD44130ADDF78D4</string>
+				<string>A2DF742692CE69F5E9E679BF</string>
+				<string>106435B4C4E715E8C3F7527D</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -793,12 +912,295 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>8E8B681219EEEA4A006A6032</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>8E8B682219EEEA8A006A6032</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>8E8B681319EEEA4A006A6032</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>82C859273B4985E3593B007A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>8E8B681419EEEA4A006A6032</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>8E8B681519EEEA4A006A6032</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>8E8B682019EEEA4A006A6032</string>
+			<key>buildPhases</key>
+			<array>
+				<string>2BDD48A7B98DB4262AA8F86B</string>
+				<string>8E8B681219EEEA4A006A6032</string>
+				<string>8E8B681319EEEA4A006A6032</string>
+				<string>8E8B681419EEEA4A006A6032</string>
+				<string>1AD4F038A79B2EDD74FC20DE</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>8E8B681D19EEEA4A006A6032</string>
+				<string>8E8B682419EEEABF006A6032</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>CSNotificationViewTests</string>
+			<key>productName</key>
+			<string>CSNotificationViewTests</string>
+			<key>productReference</key>
+			<string>8E8B681619EEEA4A006A6032</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>8E8B681619EEEA4A006A6032</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>CSNotificationViewTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>8E8B681719EEEA4A006A6032</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8E8B681819EEEA4A006A6032</string>
+				<string>8E8B682119EEEA8A006A6032</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>CSNotificationViewTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E8B681819EEEA4A006A6032</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8E8B681919EEEA4A006A6032</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E8B681919EEEA4A006A6032</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E8B681C19EEEA4A006A6032</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>8E4E1AA717D35355005EB12B</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>8E4E1AAE17D35355005EB12B</string>
+			<key>remoteInfo</key>
+			<string>CSNotificationViewDemo</string>
+		</dict>
+		<key>8E8B681D19EEEA4A006A6032</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>8E4E1AAE17D35355005EB12B</string>
+			<key>targetProxy</key>
+			<string>8E8B681C19EEEA4A006A6032</string>
+		</dict>
+		<key>8E8B681E19EEEA4A006A6032</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>25430BA67756D257DB7B2676</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(TEST_HOST)</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>INFOPLIST_FILE</key>
+				<string>CSNotificationViewTests/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUILT_PRODUCTS_DIR)/CSNotificationViewDemo.app/CSNotificationViewDemo</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>8E8B681F19EEEA4A006A6032</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>0ADCB4F371D553FD15F911F4</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(TEST_HOST)</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>INFOPLIST_FILE</key>
+				<string>CSNotificationViewTests/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUILT_PRODUCTS_DIR)/CSNotificationViewDemo.app/CSNotificationViewDemo</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>8E8B682019EEEA4A006A6032</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>8E8B681E19EEEA4A006A6032</string>
+				<string>8E8B681F19EEEA4A006A6032</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>8E8B682119EEEA8A006A6032</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>CSNotificationViewPresentationTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E8B682219EEEA8A006A6032</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8E8B682119EEEA8A006A6032</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>8E8B682319EEEABF006A6032</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>8E4E1AA717D35355005EB12B</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>8E4E1AAE17D35355005EB12B</string>
+			<key>remoteInfo</key>
+			<string>CSNotificationViewDemo</string>
+		</dict>
+		<key>8E8B682419EEEABF006A6032</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>8E4E1AAE17D35355005EB12B</string>
+			<key>targetProxy</key>
+			<string>8E8B682319EEEABF006A6032</string>
+		</dict>
 		<key>97AFF85B5E6D9E5841F97E5B</key>
 		<dict>
 			<key>children</key>
 			<array>
 				<string>880664D9E4CB6491EE4E5E3C</string>
 				<string>9A4F14863F8ED23637102486</string>
+				<string>AB5EFBBAF7B0315409323CF5</string>
+				<string>DC61CA9D70F37EC84F157D8E</string>
+				<string>25430BA67756D257DB7B2676</string>
+				<string>0ADCB4F371D553FD15F911F4</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -819,6 +1221,49 @@ fi
 			<string>Pods-CSNotificationViewDemo.release.xcconfig</string>
 			<key>path</key>
 			<string>Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A2DF742692CE69F5E9E679BF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>AB5EFBBAF7B0315409323CF5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.debug.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods/Pods.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DC61CA9D70F37EC84F157D8E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods/Pods.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>

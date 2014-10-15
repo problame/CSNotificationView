@@ -41,4 +41,9 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"parentNavigationController.n
 #pragma mark - interaction
 @property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
 
+#pragma mark - observers
+
+- (void)registerNavigationBarObserver;
+- (void)removeNavigationBarObserver;
+
 @end
