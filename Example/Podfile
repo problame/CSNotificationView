@@ -6,7 +6,6 @@ end
 
 target "CSNotificationViewTests" do
   pod "CSNotificationView", :path => "../CSNotificationView.podspec"
-  pod "ReactiveCocoa"
-  pod "XCTAsyncTestCase"
-  pod "OCMock"
+  pod "XCTAsyncTestCase", "~> 0.1.0"
+  pod "ReactiveCocoa", "~> 2.3.1"
 end

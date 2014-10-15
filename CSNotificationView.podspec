@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'CSNotificationView/*.{h,m}'
   s.resource_bundle = { 'CSNotificationView' => ['CSNotificationView/Resources/*.png'] }
+  s.dependency "ReactiveCocoa", "~> 2.3.1"
 end

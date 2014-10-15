@@ -13,9 +13,6 @@ static NSInteger const kCSNotificationViewEmptySymbolViewTag = 666;
 static NSString* const kCSNotificationViewUINavigationControllerWillShowViewControllerNotification = @"UINavigationControllerWillShowViewControllerNotification";
 static NSString* const kCSNotificationViewUINavigationControllerDidShowViewControllerNotification = @"UINavigationControllerDidShowViewControllerNotification";
 
-static void * kCSNavigationBarObservationContext = &kCSNavigationBarObservationContext;
-static NSString * kCSNavigationBarBoundsKeyPath = @"parentNavigationController.navigationBar.bounds";
-
 @protocol CSNotificationViewBlurViewProtocol <NSObject>
 
 ///The tint of the blur view
@@ -40,10 +37,5 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"parentNavigationController.n
 
 #pragma mark - interaction
 @property (nonatomic, strong) UITapGestureRecognizer* tapRecognizer;
-
-#pragma mark - observers
-
-- (void)registerNavigationBarObserver;
-- (void)removeNavigationBarObserver;
 
 @end

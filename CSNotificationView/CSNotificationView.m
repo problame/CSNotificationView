@@ -6,6 +6,9 @@
 //  Copyright (c) 2013 Christian Schwarz. Check LICENSE.md.
 //
 
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+
 #import "CSNotificationView.h"
 #import "CSNotificationView_Private.h"
 
@@ -146,9 +149,13 @@
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationControllerDidShowViewControllerNotification:) name:kCSNotificationViewUINavigationControllerDidShowViewControllerNotification object:nil];
         }
 
-        //Key-Value Observing
+        //Adjusting own frame to navigation bar bounds
         {
-            [self registerNavigationBarObserver];
+            @weakify(self);
+            [RACObserve(self, parentNavigationController.navigationBar.bounds) subscribeNext:^(NSValue *rectValue) {
+                @strongify(self);
+                [self updateFrameAfterNavigationBarBoundsChange];
+            }];
         }
         
         //Content views
@@ -192,9 +199,10 @@
 
 - (void)dealloc
 {
-    [self removeNavigationBarObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark - notifications / kvo
 
 - (void)navigationControllerWillShowViewControllerNotification:(NSNotification*)note
 {
@@ -227,26 +235,10 @@
     }
 }
 
-#pragma mark - Key-Value Observing
-
-- (void)registerNavigationBarObserver
+- (void)updateFrameAfterNavigationBarBoundsChange
 {
-    [self addObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath options:NSKeyValueObservingOptionNew context:kCSNavigationBarObservationContext];
-}
-
-- (void)removeNavigationBarObserver
-{
-    [self removeObserver:self forKeyPath:kCSNavigationBarBoundsKeyPath context:kCSNavigationBarObservationContext];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (context == kCSNavigationBarObservationContext && [keyPath isEqualToString:kCSNavigationBarBoundsKeyPath]) {
-        self.frame = self.visible ? [self visibleFrame] : [self hiddenFrame];
-        [self setNeedsLayout];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
+    self.frame = self.visible ? [self visibleFrame] : [self hiddenFrame];
+    [self setNeedsLayout];
 }
 
 #pragma mark - layout

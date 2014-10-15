@@ -9,9 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <ReactiveCocoa/RACEXTScope.h>
 #import <CSNotificationView/CSNotificationView.h>
-#import <CSNotificationView/CSNotificationView_Private.h>
 #import <XCTAsyncTestCase/XCTAsyncTestCase.h>
-#import <OCMock/OCMock.h>
 
 #import "CSAppDelegate.h"
 #import "CSDetailsViewController.h"
@@ -41,29 +39,33 @@ typedef void(^VoidBlock)();
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:modalRootVC];
 
     CSNotificationView *note = [[CSNotificationView alloc] initWithParentViewController:modalRootVC];
-    id mockNote = OCMPartialMock(note);
-    [[mockNote expect] removeNavigationBarObserver];
     
-    @weakify(modalRootVC, mockNote);
+    [self prepare];
+    
+    @weakify(self, modalRootVC, note);
     [self.detailsViewController presentViewController:navVC animated:NO completion:^{
-        @strongify(mockNote);
+        @strongify(note);
         
-        [mockNote setVisible:YES animated:NO completion:^{
+        [note setVisible:YES animated:NO completion:^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                @strongify(modalRootVC, mockNote);
+                @strongify(modalRootVC, note);
                 
                 //Animated hide gives us time to call for dimissal of the modal view controller
-                [mockNote setVisible:NO animated:YES completion:nil];
+                [note setVisible:NO animated:YES completion:nil];
                 
                 //Immediate dismissal should cause navigation bar to be deallocated
-                [modalRootVC dismissViewControllerAnimated:NO completion:nil];
+                [modalRootVC dismissViewControllerAnimated:NO completion:^{
+                    @strongify(self);
+#warning TODO: if KVO is not balanced, there is a log output which is not covered by this unit test. This test will always succeed.
+                    [self notify:kXCTUnitWaitStatusSuccess];
+                }];
                 
             });
         }];
         
     }];
     
-    [mockNote verify];
+    [self waitForStatus:kXCTUnitWaitStatusSuccess timeout:4.0];
     
 }
 

@@ -342,6 +342,7 @@ fi
 				<string>8E4E1AB717D35355005EB12B</string>
 				<string>8E4E1AB317D35355005EB12B</string>
 				<string>01CD69DA48684BDFA28BB0F9</string>
+				<string>8F6C6B93F389ED9A4BB5561C</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -1190,6 +1191,13 @@ fi
 			<string>8E4E1AAE17D35355005EB12B</string>
 			<key>targetProxy</key>
 			<string>8E8B682319EEEABF006A6032</string>
+		</dict>
+		<key>8F6C6B93F389ED9A4BB5561C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A2DF742692CE69F5E9E679BF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>97AFF85B5E6D9E5841F97E5B</key>
 		<dict>
