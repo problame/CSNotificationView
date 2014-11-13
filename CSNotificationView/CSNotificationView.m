@@ -24,12 +24,15 @@
 {
     NSAssert(message, @"'message' must not be nil.");
     
-    __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
+    CSNotificationView *note = [[CSNotificationView alloc] initWithParentViewController:viewController];
     note.tintColor = tintColor;
     note.image = image;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    __weak CSNotificationView *weakNote = note;
+    void (^completion)() = ^{
+        [weakNote setVisible:NO animated:YES completion:nil];
+    };
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -50,14 +53,17 @@
 {
     NSAssert(message, @"'message' must not be nil.");
     
-    __block CSNotificationView* note = [[CSNotificationView alloc] initWithParentViewController:viewController];
+    CSNotificationView *note = [[CSNotificationView alloc] initWithParentViewController:viewController];
     note.tintColor = tintColor;
     note.image = image;
     note.textLabel.font = font;
     note.textLabel.textAlignment = textAlignment;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    __weak CSNotificationView *weakNote = note;
+    void (^completion)() = ^{
+        [weakNote setVisible:NO animated:YES completion:nil];
+    };
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
