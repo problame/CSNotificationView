@@ -46,18 +46,19 @@
 - (IBAction)showModal:(id)sender
 {
     UIViewController *modalController = [[UIViewController alloc] init];
+    modalController.view.backgroundColor = [UIColor whiteColor];
+    modalController.navigationItem.title = @"Modal";
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalController];
     
     __weak UIViewController *weakModalController = modalController;
 
-    __block typeof(self) weakself = self;
-    [self presentViewController:navController animated:NO completion:^{
+    [self presentViewController:navController animated:YES completion:^{
         [CSNotificationView showInViewController:weakModalController
                                            style:CSNotificationViewStyleSuccess
                                          message:@"To be dismissed after the view controller dismisses"];
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.4) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((1.0) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakModalController dismissViewControllerAnimated:YES completion:nil];
     });
     
