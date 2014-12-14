@@ -12,10 +12,10 @@ static CGFloat const kCSNotificationViewHeight = 50.0f;
 static CGFloat const kCSNotificationViewSymbolViewSidelength = 44.0f;
 static NSTimeInterval const kCSNotificationViewDefaultShowDuration = 2.0;
 
-typedef enum {
+typedef NS_ENUM(NSInteger, CSNotificationViewStyle) {
     CSNotificationViewStyleSuccess,
-    CSNotificationViewStyleError,
-} CSNotificationViewStyle;
+    CSNotificationViewStyleError
+};
 
 typedef void(^CSVoidBlock)();
 
