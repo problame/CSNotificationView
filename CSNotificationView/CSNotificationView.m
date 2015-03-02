@@ -377,6 +377,14 @@
     }];
 }
 
+#pragma mark - updates
+
+- (void)updateMessage:(NSString *)message
+{
+    self.textLabel.text = message;
+}
+
+
 #pragma mark - frame calculation
 
 //Workaround as there is a bug: sometimes, when accessing topLayoutGuide, it will render contentSize of UITableViewControllers to be {0, 0}
