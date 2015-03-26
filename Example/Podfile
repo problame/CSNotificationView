@@ -1,5 +1,8 @@
 platform :ios, "7.0"
 
+# In case you want to demo/test CocoaPods frameworks
+# use_frameworks!
+
 target "CSNotificationViewDemo" do
     pod "CSNotificationView", :path => "../"
 end
