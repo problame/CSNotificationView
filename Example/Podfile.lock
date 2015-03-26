@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  CSNotificationView: 11a5aca83a319e8baadb1753bd1ea789929073e2
+  CSNotificationView: a7480a78cfc9193d32d4e9f3b3dfa04f5dec84bf
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.0
