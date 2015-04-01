@@ -1,5 +1,5 @@
 PODS:
-  - CSNotificationView (0.5.3)
+  - CSNotificationView (0.5.4)
 
 DEPENDENCIES:
   - CSNotificationView (from `../`)
