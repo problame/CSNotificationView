@@ -1,5 +1,5 @@
 PODS:
-  - CSNotificationView (0.5.3)
+  - CSNotificationView (0.5.4)
 
 DEPENDENCIES:
   - CSNotificationView (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  CSNotificationView: a7480a78cfc9193d32d4e9f3b3dfa04f5dec84bf
+  CSNotificationView: 0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.36.3
