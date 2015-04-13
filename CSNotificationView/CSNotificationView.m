@@ -383,6 +383,10 @@
 - (CGFloat)topLayoutGuideLengthCalculation
 {
     CGFloat top = MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
+
+    UIView *view = self.parentNavigationController.view ?: self.parentViewController.view;
+    CGPoint origin = [view.superview convertPoint:view.frame.origin toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+    top -= origin.y;
     
     if (self.parentNavigationController && !self.parentNavigationController.navigationBarHidden) {
         
