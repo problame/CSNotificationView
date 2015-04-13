@@ -73,7 +73,7 @@
     self.permanentNotification =
         [CSNotificationView notificationViewWithParentViewController:self.navigationController
             tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
-                image:nil message:@"I am running for two seconds."];
+                image:nil message:@"I am running for five seconds."];
     
     [self.permanentNotification setShowingActivity:YES];
     
@@ -89,8 +89,14 @@
                                                  style:UIBarButtonItemStyleDone
                                                 target:weakself
                                                 action:@selector(cancel)];
+
+        weakself.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"Update"
+                                         style:UIBarButtonItemStyleDone
+                                        target:weakself
+                                        action:@selector(update)];
         
-        double delayInSeconds = 2.0;
+        double delayInSeconds = 5.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [weakself success];
@@ -99,8 +105,14 @@
     }];
 }
 
+- (void)update
+{
+    [self.permanentNotification updateMessage:@"This is a new message..."];
+}
+
 - (void)cancel
 {
+    self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;
     [self.permanentNotification dismissWithStyle:CSNotificationViewStyleError
                                          message:@"Cancelled"
@@ -111,6 +123,7 @@
 
 - (void)success
 {
+    self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;
     [self.permanentNotification dismissWithStyle:CSNotificationViewStyleSuccess
                                              message:@"Sucess!"

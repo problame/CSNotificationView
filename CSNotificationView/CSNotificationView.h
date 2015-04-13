@@ -82,6 +82,10 @@ typedef void(^CSVoidBlock)();
 
 @property (readonly, nonatomic, getter = isShowing) BOOL visible;
 
+#pragma mark - updates
+
+- (void)updateMessage:(NSString *)message;
+
 #pragma mark - visible properties
 
 /**
