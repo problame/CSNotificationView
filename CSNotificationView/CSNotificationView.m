@@ -382,11 +382,15 @@
 //Workaround as there is a bug: sometimes, when accessing topLayoutGuide, it will render contentSize of UITableViewControllers to be {0, 0}
 - (CGFloat)topLayoutGuideLengthCalculation
 {
-    CGFloat top = MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
+    CGFloat top = 0;
 
     UIView *view = self.parentNavigationController.view ?: self.parentViewController.view;
-    CGPoint origin = [view.superview convertPoint:view.frame.origin toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
-    top -= origin.y;
+    CGPoint originInWindow = [view.superview convertPoint:view.frame.origin toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+    CGFloat statusBarHeight = MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
+
+    if (originInWindow.y < statusBarHeight) {
+        top += statusBarHeight - originInWindow.y;
+    }
     
     if (self.parentNavigationController && !self.parentNavigationController.navigationBarHidden) {
         
