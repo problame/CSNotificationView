@@ -17,7 +17,9 @@ typedef NS_ENUM(NSInteger, CSNotificationViewStyle) {
     CSNotificationViewStyleError
 };
 
+@class CSNotificationView;
 typedef void(^CSVoidBlock)();
+typedef void(^CSTargetBlock)(CSNotificationView *target);
 
 @interface CSNotificationView : UIView
 
@@ -40,6 +42,15 @@ typedef void(^CSVoidBlock)();
                        image:(UIImage*)image
                      message:(NSString*)message
                     duration:(NSTimeInterval)duration;
+
++ (void)showInViewController:(UIViewController*)viewController
+                   tintColor:(UIColor*)tintColor
+                        font:(UIFont*)font
+               textAlignment:(NSTextAlignment)textAlignment
+                       image:(UIImage*)image
+                     message:(NSString*)message
+                    duration:(NSTimeInterval)duration
+                  tabHandler:(CSTargetBlock)block;
 
 #pragma mark + creators
 
@@ -107,5 +118,10 @@ typedef void(^CSVoidBlock)();
  * A callback called if the user taps on the notification.
  */
 @property (nonatomic, copy) CSVoidBlock tapHandler;
+
+/**
+ * A callback called if the user taps on the notification without having a strong reference to the CSNotificationView in the controller
+ */
+@property (nonatomic, copy) CSTargetBlock tapHandlerWithTarget;
 
 @end

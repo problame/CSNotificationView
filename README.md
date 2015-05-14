@@ -58,6 +58,27 @@ Handle tap events on the notification using a block callback
     };
 ```
 
+Handle tap events on the notification using a block callback without a strong reference to the notification itself
+
+```objc
+ [CSNotificationView showInViewController:self.navigationController
+                                tintColor:[UIColor colorWithRed:0.000 green:0.6 blue:1.000 alpha:1]
+                                    font:nil
+                           textAlignment:NSTextAlignmentNatural
+                                   image:nil
+                                 message:@"No icon and a message that needs two rows and extra "
+                                         @"presentation time to be displayed properly."
+                                duration:5.8f
+                              tabHandler:^(CSNotificationView *target) {
+                                            NSLog(@"NotificationView tapped");
+                                            [target setVisible:NO animated:YES completion:^{
+                                                NSLog(@"NotificationView closed");
+                                            }];
+                              }];
+];                              
+
+```
+
 ###Customization
 
 ####Custom image / icon
