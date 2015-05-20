@@ -49,6 +49,7 @@
     modalController.view.backgroundColor = [UIColor whiteColor];
     modalController.navigationItem.title = @"Modal";
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalController];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
     
     __weak UIViewController *weakModalController = modalController;
 

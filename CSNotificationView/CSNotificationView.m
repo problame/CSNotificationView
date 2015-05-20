@@ -379,10 +379,9 @@
 
 #pragma mark - frame calculation
 
-//Workaround as there is a bug: sometimes, when accessing topLayoutGuide, it will render contentSize of UITableViewControllers to be {0, 0}
-- (CGFloat)topLayoutGuideLengthCalculation
+- (CGFloat)topLayoutGuideLengthOfViewController:(UIViewController *)viewController
 {
-    CGFloat top = MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
+    CGFloat top = [self topLayoutGuideOfViewController:viewController].length;
     
     if (self.parentNavigationController && !self.parentNavigationController.navigationBarHidden) {
         
@@ -390,6 +389,15 @@
     }
     
     return top;
+}
+
+- (id<UILayoutSupport>)topLayoutGuideOfViewController:(UIViewController *)viewController
+{
+    if (viewController.parentViewController && ![viewController.parentViewController isKindOfClass:UINavigationController.class]) {
+        return [self topLayoutGuideOfViewController:viewController.parentViewController];
+    } else {
+        return viewController.topLayoutGuide;
+    }
 }
 
 - (CGRect)visibleFrame
@@ -400,7 +408,7 @@
         return CGRectZero;
     }
     
-    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
+    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthOfViewController:viewController];
 
     CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
     CGRect displayFrame = CGRectMake(0, 0, fabs(transformedSize.width),
@@ -417,7 +425,7 @@
         return CGRectZero;
     }
     
-    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthCalculation];
+    CGFloat topLayoutGuideLength = [self topLayoutGuideLengthOfViewController:viewController];
 
     CGSize transformedSize = CGSizeApplyAffineTransform(viewController.view.frame.size, viewController.view.transform);
     CGRect offscreenFrame = CGRectMake(0, -kCSNotificationViewHeight - topLayoutGuideLength,

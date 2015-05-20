@@ -323,6 +323,7 @@
 				GCC_PREFIX_HEADER = "CSNotificationViewDemo/CSNotificationViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSNotificationViewDemo/CSNotificationViewDemo-Info.plist";
 				PRODUCT_NAME = CSNotificationViewDemo;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -337,6 +338,7 @@
 				GCC_PREFIX_HEADER = "CSNotificationViewDemo/CSNotificationViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSNotificationViewDemo/CSNotificationViewDemo-Info.plist";
 				PRODUCT_NAME = CSNotificationViewDemo;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
