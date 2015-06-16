@@ -439,7 +439,10 @@
 {
     [self.symbolView removeFromSuperview];
     
-    if (self.isShowingActivity) {
+    if (self.customSymbolView) {
+        _symbolView = self.customSymbolView;
+    }
+    else if (self.isShowingActivity) {
         UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         indicator.color = self.contentColor;
         [indicator startAnimating];

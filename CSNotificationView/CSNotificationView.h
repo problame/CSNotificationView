@@ -108,4 +108,10 @@ typedef void(^CSVoidBlock)();
  */
 @property (nonatomic, copy) CSVoidBlock tapHandler;
 
+/*
+ * If given, this view will be used in place of the image or the activity view.
+ * The size of the symbol view will be adjusted automatically; 
+ * the setter should not set width/height constraints
+ */
+@property (nonatomic, strong) UIView* customSymbolView;
 @end
