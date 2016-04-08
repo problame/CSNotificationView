@@ -80,7 +80,7 @@ typedef void(^CSVoidBlock)();
  */
 - (void)dismissWithStyle:(CSNotificationViewStyle)style message:(NSString*)message duration:(NSTimeInterval)duration animated:(BOOL)animated;
 
-@property (readonly, nonatomic, getter = isShowing) BOOL visible;
+@property (readonly, nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - visible properties
 
