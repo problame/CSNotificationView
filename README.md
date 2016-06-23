@@ -16,6 +16,10 @@ Also supports displaying progress.
 
 </div>
 
+##Installation
+	
+	pod 'CSNotificationView', '~> 0.5.4'
+	
 ##Example code
 
 ###Quick presentation
