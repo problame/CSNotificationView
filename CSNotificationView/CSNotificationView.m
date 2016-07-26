@@ -128,9 +128,9 @@
         //Parent view
         {
             self.parentViewController = viewController;
-            
-            NSAssert(!([self.parentViewController isKindOfClass:[UITableViewController class]] && !self.parentViewController.navigationController), @"Due to a bug in iOS 7.0.1|2|3 UITableViewController, CSNotificationView cannot present in UITableViewController without a parent UINavigationController");
-            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.1) {
+                  NSAssert(!([self.parentViewController isKindOfClass:[UITableViewController class]] && !self.parentViewController.navigationController), @"Due to a bug in iOS 7.0.1|2|3 UITableViewController, CSNotificationView cannot present in UITableViewController without a parent UINavigationController");
+            }
             if (self.parentViewController.navigationController) {
                 self.parentNavigationController = self.parentViewController.navigationController;
             }
