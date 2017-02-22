@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static CGFloat const kCSNotificationViewHeight = 44.0f;
+static CGFloat const kCSNotificationViewHeight = 50.0f;
 static CGFloat const kCSNotificationViewSymbolViewSidelength = 44.0f;
 static CGFloat const kCSNotificationViewCloseButtonWidth = 44.0f;
 static CGFloat const kCSNotificationViewCloseButtonHeight = 44.0f;
