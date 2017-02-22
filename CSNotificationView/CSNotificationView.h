@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-static CGFloat const kCSNotificationViewHeight = 50.0f;
+static CGFloat const kCSNotificationViewHeight = 44.0f;
 static CGFloat const kCSNotificationViewSymbolViewSidelength = 44.0f;
+static CGFloat const kCSNotificationViewCloseButtonWidth = 44.0f;
+static CGFloat const kCSNotificationViewCloseButtonHeight = 44.0f;
 static NSTimeInterval const kCSNotificationViewDefaultShowDuration = 2.0;
 
 typedef NS_ENUM(NSInteger, CSNotificationViewStyle) {
@@ -100,6 +102,8 @@ typedef void(^CSVoidBlock)();
  * The label containing the message displayed to the user.
  */
 @property (nonatomic, readonly) UILabel* textLabel;
+	
+@property (nonatomic, readonly) UIButton *closeButton;
 
 @property (nonatomic, getter = isShowingActivity) BOOL showingActivity;
 

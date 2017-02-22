@@ -175,6 +175,14 @@
             {
                 [self updateSymbolView];
             }
+			
+			//closeButton
+			{
+				_closeButton = [[UIButton alloc] init];
+				_closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+				_closeButton.backgroundColor = [UIColor clearColor];
+				[self addSubview:_closeButton];
+			}
         }
         
         //Interaction
@@ -255,23 +263,28 @@
     CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
                                 kCSNotificationViewSymbolViewSidelength : 0.0f;
     CGFloat symbolViewHeight = kCSNotificationViewSymbolViewSidelength;
-    
+	
+	CGFloat closeButtonWidth = kCSNotificationViewCloseButtonWidth;
+	CGFloat closeButtonHeight = kCSNotificationViewCloseButtonHeight;
+	
     NSDictionary* metrics =
         @{@"symbolViewWidth": [NSNumber numberWithFloat:symbolViewWidth],
-          @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight]};
+          @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight],
+		  @"closeButtonWidth":@(closeButtonWidth),
+		  @"closeButtonHeight":@(closeButtonHeight)};
     
     [self addConstraints:[NSLayoutConstraint
-        constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
+        constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(5)-[_closeButton(closeButtonWidth)]-(10)-|"
                             options:0
                             metrics:metrics
-                              views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
+                              views:NSDictionaryOfVariableBindings(_textLabel, _symbolView,_closeButton)]];
     
     [self addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"V:[_symbolView(symbolViewHeight)]"
                             options:0
                             metrics:metrics
                                 views:NSDictionaryOfVariableBindings(_symbolView)]];
-    
+	
     [self addConstraint:[NSLayoutConstraint
                 constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
@@ -287,7 +300,22 @@
                     toItem:_symbolView
                  attribute:NSLayoutAttributeCenterY
                 multiplier:1.0f constant:0]];
-    
+	
+	[self addConstraints:[NSLayoutConstraint
+        constraintsWithVisualFormat:@"V:[_closeButton(closeButtonHeight)]"
+						  options:0
+						  metrics:metrics
+						  views:NSDictionaryOfVariableBindings(_closeButton)]];
+	
+	[self addConstraint:[NSLayoutConstraint
+						 constraintWithItem:_closeButton
+						 attribute:NSLayoutAttributeBottom
+						 relatedBy:NSLayoutRelationEqual
+						 toItem:self
+						 attribute:NSLayoutAttributeBottom
+						 multiplier:1.0f constant:0]];
+
+	
     [super updateConstraints];
 }
 

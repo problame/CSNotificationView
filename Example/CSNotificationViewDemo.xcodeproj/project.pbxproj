@@ -17,11 +17,12 @@
 		8E4E1AE717D353F3005EB12B /* CSRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4E1AE617D353F3005EB12B /* CSRootViewController.m */; };
 		8E4E1AEF17D35DBD005EB12B /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E1AE117D35364005EB12B /* Storyboard.storyboard */; };
 		8E757B5117D38F6B0088845B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E757B4F17D38CE80088845B /* Images.xcassets */; };
-		CDA22641FF7B56FDE45B7458 /* libPods-CSNotificationViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0093830E592DC8633F4507F /* libPods-CSNotificationViewDemo.a */; };
+		EFDB4F3496FCE29F537F7B03 /* libPods-CSNotificationViewDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A30B0E313513121F25F387D /* libPods-CSNotificationViewDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		880664D9E4CB6491EE4E5E3C /* Pods-CSNotificationViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSNotificationViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		0A30B0E313513121F25F387D /* libPods-CSNotificationViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSNotificationViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F4337AC8FFB8ED9D2AA40EE /* Pods-CSNotificationViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSNotificationViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8E310C7718BBA9AE0081DEC7 /* CSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSDetailsViewController.h; sourceTree = "<group>"; };
 		8E310C7818BBA9AE0081DEC7 /* CSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSDetailsViewController.m; sourceTree = "<group>"; };
 		8E4E1AAF17D35355005EB12B /* CSNotificationViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSNotificationViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,8 +40,7 @@
 		8E4E1AE517D353F3005EB12B /* CSRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSRootViewController.h; sourceTree = "<group>"; };
 		8E4E1AE617D353F3005EB12B /* CSRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSRootViewController.m; sourceTree = "<group>"; };
 		8E757B4F17D38CE80088845B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9A4F14863F8ED23637102486 /* Pods-CSNotificationViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSNotificationViewDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo.release.xcconfig"; sourceTree = "<group>"; };
-		D0093830E592DC8633F4507F /* libPods-CSNotificationViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CSNotificationViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5E85C63DB9D8DC050CFA0A1 /* Pods-CSNotificationViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CSNotificationViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 				8E4E1AB517D35355005EB12B /* CoreGraphics.framework in Frameworks */,
 				8E4E1AB717D35355005EB12B /* UIKit.framework in Frameworks */,
 				8E4E1AB317D35355005EB12B /* Foundation.framework in Frameworks */,
-				CDA22641FF7B56FDE45B7458 /* libPods-CSNotificationViewDemo.a in Frameworks */,
+				EFDB4F3496FCE29F537F7B03 /* libPods-CSNotificationViewDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +64,7 @@
 				8E4E1AB817D35355005EB12B /* CSNotificationViewDemo */,
 				8E4E1AB117D35355005EB12B /* Frameworks */,
 				8E4E1AB017D35355005EB12B /* Products */,
-				97AFF85B5E6D9E5841F97E5B /* Pods */,
+				C769347B83FC922860C9A7BE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,7 +83,7 @@
 				8E4E1AB417D35355005EB12B /* CoreGraphics.framework */,
 				8E4E1AB617D35355005EB12B /* UIKit.framework */,
 				8E4E1ACB17D35355005EB12B /* XCTest.framework */,
-				D0093830E592DC8633F4507F /* libPods-CSNotificationViewDemo.a */,
+				0A30B0E313513121F25F387D /* libPods-CSNotificationViewDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,11 +115,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		97AFF85B5E6D9E5841F97E5B /* Pods */ = {
+		C769347B83FC922860C9A7BE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				880664D9E4CB6491EE4E5E3C /* Pods-CSNotificationViewDemo.debug.xcconfig */,
-				9A4F14863F8ED23637102486 /* Pods-CSNotificationViewDemo.release.xcconfig */,
+				D5E85C63DB9D8DC050CFA0A1 /* Pods-CSNotificationViewDemo.debug.xcconfig */,
+				4F4337AC8FFB8ED9D2AA40EE /* Pods-CSNotificationViewDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -131,11 +131,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E4E1ADB17D35355005EB12B /* Build configuration list for PBXNativeTarget "CSNotificationViewDemo" */;
 			buildPhases = (
-				00883B70016F4060A1A950ED /* Check Pods Manifest.lock */,
+				B80CC3F8F7E59CB19529FADA /* [CP] Check Pods Manifest.lock */,
 				8E4E1AAB17D35355005EB12B /* Sources */,
 				8E4E1AAC17D35355005EB12B /* Frameworks */,
 				8E4E1AAD17D35355005EB12B /* Resources */,
-				19CFEDDF4B6643CB830EB555 /* Copy Pods Resources */,
+				FA4652C2AAE102C1D42B8FCF /* [CP] Embed Pods Frameworks */,
+				BFA15B7F8A204606AE35F41B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -153,8 +154,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CS;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Christian Schwarz";
+				TargetAttributes = {
+					8E4E1AAE17D35355005EB12B = {
+						DevelopmentTeam = Z9E6AHNZ26;
+					};
+				};
 			};
 			buildConfigurationList = 8E4E1AAA17D35355005EB12B /* Build configuration list for PBXProject "CSNotificationViewDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -187,34 +193,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00883B70016F4060A1A950ED /* Check Pods Manifest.lock */ = {
+		B80CC3F8F7E59CB19529FADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		19CFEDDF4B6643CB830EB555 /* Copy Pods Resources */ = {
+		BFA15B7F8A204606AE35F41B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA4652C2AAE102C1D42B8FCF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CSNotificationViewDemo/Pods-CSNotificationViewDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -258,25 +279,32 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -295,19 +323,25 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -315,13 +349,15 @@
 		};
 		8E4E1ADC17D35355005EB12B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 880664D9E4CB6491EE4E5E3C /* Pods-CSNotificationViewDemo.debug.xcconfig */;
+			baseConfigurationReference = D5E85C63DB9D8DC050CFA0A1 /* Pods-CSNotificationViewDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = Z9E6AHNZ26;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSNotificationViewDemo/CSNotificationViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSNotificationViewDemo/CSNotificationViewDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cschwarz.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = CSNotificationViewDemo;
 				WRAPPER_EXTENSION = app;
 			};
@@ -329,13 +365,15 @@
 		};
 		8E4E1ADD17D35355005EB12B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A4F14863F8ED23637102486 /* Pods-CSNotificationViewDemo.release.xcconfig */;
+			baseConfigurationReference = 4F4337AC8FFB8ED9D2AA40EE /* Pods-CSNotificationViewDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = Z9E6AHNZ26;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CSNotificationViewDemo/CSNotificationViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "CSNotificationViewDemo/CSNotificationViewDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cschwarz.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = CSNotificationViewDemo;
 				WRAPPER_EXTENSION = app;
 			};

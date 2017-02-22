@@ -6,9 +6,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   CSNotificationView:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  CSNotificationView: 0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1
+  CSNotificationView: '0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1'
 
-COCOAPODS: 0.36.3
+PODFILE CHECKSUM: f4fddefb75e9a100b7ba088b458a9380505e17e4
+
+COCOAPODS: 1.1.1
