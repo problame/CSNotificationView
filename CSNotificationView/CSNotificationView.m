@@ -343,7 +343,7 @@
 {
     if (_visible != visible) {
         
-        NSTimeInterval animationDuration = animated ? 0.4 : 0.0;
+        NSTimeInterval animationDuration = animated ? 0.7 : 0.0;
         
         CGRect startFrame, endFrame;
         [self animationFramesForVisible:visible startFrame:&startFrame endFrame:&endFrame];
