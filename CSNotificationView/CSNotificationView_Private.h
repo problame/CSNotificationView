@@ -31,7 +31,6 @@ static NSString * kCSNavigationBarBoundsKeyPath = @"parentNavigationController.n
 #pragma mark - presentation
 @property (nonatomic, weak) UIViewController* parentViewController;
 @property (nonatomic, strong) UINavigationController* parentNavigationController; //Has to be strong-referenced because CSNotificationView does KVO on parentNavigationController
-@property (nonatomic, getter = isVisible) BOOL visible;
 
 #pragma mark - content views
 @property (nonatomic, strong, readonly) UIView* symbolView; // is updated by -(void)updateSymbolView

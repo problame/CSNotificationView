@@ -10,6 +10,8 @@
 
 static CGFloat const kCSNotificationViewHeight = 50.0f;
 static CGFloat const kCSNotificationViewSymbolViewSidelength = 44.0f;
+static CGFloat const kCSNotificationViewCloseButtonWidth = 44.0f;
+static CGFloat const kCSNotificationViewCloseButtonHeight = 44.0f;
 static NSTimeInterval const kCSNotificationViewDefaultShowDuration = 2.0;
 
 typedef NS_ENUM(NSInteger, CSNotificationViewStyle) {
@@ -17,7 +19,7 @@ typedef NS_ENUM(NSInteger, CSNotificationViewStyle) {
     CSNotificationViewStyleError
 };
 
-typedef void(^CSVoidBlock)();
+typedef void(^CSVoidBlock)(void);
 
 @interface CSNotificationView : UIView
 
@@ -73,7 +75,7 @@ typedef void(^CSVoidBlock)();
  * @param animated Should a change in `showing` be animated?
  * @param completion `nil` or a callback called on the main thread after changes to the interface are completed.
  */
-- (void)setVisible:(BOOL)showing animated:(BOOL)animated completion:(void (^)())completion;
+- (void)setVisible:(BOOL)showing animated:(BOOL)animated completion:(void (^)(void))completion;
 
 /**
  * Convenience method to dismiss with a(nother) predefined style and / or message.
@@ -100,6 +102,8 @@ typedef void(^CSVoidBlock)();
  * The label containing the message displayed to the user.
  */
 @property (nonatomic, readonly) UILabel* textLabel;
+	
+@property (nonatomic, readonly) UIButton *closeButton;
 
 @property (nonatomic, getter = isShowingActivity) BOOL showingActivity;
 

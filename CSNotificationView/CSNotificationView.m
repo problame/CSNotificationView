@@ -14,6 +14,15 @@
 
 @implementation CSNotificationView
 
+-(nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self initWithCoder:aDecoder];
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [self initWithFrame:frame];
+    return self;
+}
 #pragma mark + quick presentation
 
 + (void)showInViewController:(UIViewController*)viewController
@@ -29,7 +38,7 @@
     note.image = image;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    void (^completion)(void) = ^{[note setVisible:NO animated:YES completion:nil];};
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -57,7 +66,7 @@
     note.textLabel.textAlignment = textAlignment;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    void (^completion)(void) = ^{[note setVisible:NO animated:YES completion:nil];};
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -175,6 +184,14 @@
             {
                 [self updateSymbolView];
             }
+			
+			//closeButton
+			{
+				_closeButton = [[UIButton alloc] init];
+				_closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+				_closeButton.backgroundColor = [UIColor clearColor];
+				[self addSubview:_closeButton];
+			}
         }
         
         //Interaction
@@ -255,23 +272,28 @@
     CGFloat symbolViewWidth = self.symbolView.tag != kCSNotificationViewEmptySymbolViewTag ?
                                 kCSNotificationViewSymbolViewSidelength : 0.0f;
     CGFloat symbolViewHeight = kCSNotificationViewSymbolViewSidelength;
-    
+	
+	CGFloat closeButtonWidth = kCSNotificationViewCloseButtonWidth;
+	CGFloat closeButtonHeight = kCSNotificationViewCloseButtonHeight;
+	
     NSDictionary* metrics =
         @{@"symbolViewWidth": [NSNumber numberWithFloat:symbolViewWidth],
-          @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight]};
+          @"symbolViewHeight":[NSNumber numberWithFloat:symbolViewHeight],
+		  @"closeButtonWidth":@(closeButtonWidth),
+		  @"closeButtonHeight":@(closeButtonHeight)};
     
     [self addConstraints:[NSLayoutConstraint
-        constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(10)-|"
+        constraintsWithVisualFormat:@"H:|-(4)-[_symbolView(symbolViewWidth)]-(5)-[_textLabel]-(5)-[_closeButton(closeButtonWidth)]-(10)-|"
                             options:0
                             metrics:metrics
-                              views:NSDictionaryOfVariableBindings(_textLabel, _symbolView)]];
+                              views:NSDictionaryOfVariableBindings(_textLabel, _symbolView,_closeButton)]];
     
     [self addConstraints:[NSLayoutConstraint
         constraintsWithVisualFormat:@"V:[_symbolView(symbolViewHeight)]"
                             options:0
                             metrics:metrics
                                 views:NSDictionaryOfVariableBindings(_symbolView)]];
-    
+	
     [self addConstraint:[NSLayoutConstraint
                 constraintWithItem:_symbolView
                          attribute:NSLayoutAttributeBottom
@@ -287,7 +309,22 @@
                     toItem:_symbolView
                  attribute:NSLayoutAttributeCenterY
                 multiplier:1.0f constant:0]];
-    
+	
+	[self addConstraints:[NSLayoutConstraint
+        constraintsWithVisualFormat:@"V:[_closeButton(closeButtonHeight)]"
+						  options:0
+						  metrics:metrics
+						  views:NSDictionaryOfVariableBindings(_closeButton)]];
+	
+	[self addConstraint:[NSLayoutConstraint
+						 constraintWithItem:_closeButton
+						 attribute:NSLayoutAttributeBottom
+						 relatedBy:NSLayoutRelationEqual
+						 toItem:self
+						 attribute:NSLayoutAttributeBottom
+						 multiplier:1.0f constant:0]];
+
+	
     [super updateConstraints];
 }
 
@@ -311,11 +348,11 @@
 
 #pragma mark - presentation
 
-- (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)())completion
+- (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(void))completion
 {
     if (_visible != visible) {
         
-        NSTimeInterval animationDuration = animated ? 0.4 : 0.0;
+        NSTimeInterval animationDuration = animated ? 0.7 : 0.0;
         
         CGRect startFrame, endFrame;
         [self animationFramesForVisible:visible startFrame:&startFrame endFrame:&endFrame];

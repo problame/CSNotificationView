@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CSNotificationView_Private.h"
 
+API_AVAILABLE(ios(8.0))
 @interface CSNativeBlurView : UIVisualEffectView <CSNotificationViewBlurViewProtocol>
 
 @end
