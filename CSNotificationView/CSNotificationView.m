@@ -14,6 +14,15 @@
 
 @implementation CSNotificationView
 
+-(nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self initWithCoder:aDecoder];
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [self initWithFrame:frame];
+    return self;
+}
 #pragma mark + quick presentation
 
 + (void)showInViewController:(UIViewController*)viewController
@@ -29,7 +38,7 @@
     note.image = image;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    void (^completion)(void) = ^{[note setVisible:NO animated:YES completion:nil];};
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -57,7 +66,7 @@
     note.textLabel.textAlignment = textAlignment;
     note.textLabel.text = message;
     
-    void (^completion)() = ^{[note setVisible:NO animated:YES completion:nil];};
+    void (^completion)(void) = ^{[note setVisible:NO animated:YES completion:nil];};
     [note setVisible:YES animated:YES completion:^{
         double delayInSeconds = duration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -339,7 +348,7 @@
 
 #pragma mark - presentation
 
-- (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)())completion
+- (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(void))completion
 {
     if (_visible != visible) {
         

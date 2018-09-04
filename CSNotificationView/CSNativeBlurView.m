@@ -22,7 +22,15 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    if (@available(iOS 8.0, *)) {
+        self = [super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    } else {
+        // Fallback on earlier versions
+    }if (@available(iOS 8.0, *)) {
+        self = [super initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    } else {
+        // Fallback on earlier versions
+    }
     if (self) {
         self.tintColorView = [[UIView alloc] initWithFrame:self.bounds];
         self.tintColorView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
